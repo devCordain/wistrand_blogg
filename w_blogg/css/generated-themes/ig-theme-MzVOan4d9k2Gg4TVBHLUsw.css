@@ -4,10 +4,10 @@
     --black: #000;
     
     /* Theme */
-    --theme: #3AA5ED;
-    --theme-rgb: 58, 165, 237;
-    --theme-darker: #0F67A2;
-    --theme-contrast: #FFF;
+    --theme: #fafafa;
+    --theme-rgb: 250, 250, 250;
+    --theme-darker: #959595;
+    --theme-contrast: #111;
     
     /* Theme alt */
     --theme-alt: #2ECC71;
