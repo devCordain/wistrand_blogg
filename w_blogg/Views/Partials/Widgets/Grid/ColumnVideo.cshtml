@@ -1,0 +1,23 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.ColumnVideo>
+@using ContentModels = Umbraco.Web.PublishedModels;
+@{
+    var videoUrl = Model.Video != null ? Model.Video.Url : "";
+    var posterUrl = Model.Poster !=  null ? Model.Poster.Url : "";
+    var mute = Model.Mute ? "muted" : "";
+    var autoplay = Model.Autoplay ? "autoplay playsinline" : "";
+    var hideControls = Model.HideControls ? "" : "controls";
+    var loop = Model.Loop ? "loop" : "";
+    var videoShadow = Model.VideoShadow ? "video-shadow" : "";
+}
+
+<div class="grid-item grid-item--video @videoShadow">
+
+    @if (videoUrl != "")
+    {
+        <video @(mute) @(autoplay) @(hideControls) @(loop)
+            @if (posterUrl != "") { <text> poster="@posterUrl" </text>  }>
+            <source src="@(videoUrl)" type="video/mp4">
+        </video>
+    }
+
+</div>

@@ -1,0 +1,23 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.ColumnAccordion>
+@using ContentModels = Umbraco.Web.PublishedModels;
+@{
+    var boxedColumnClass = Model.BoxedColumn ? "grid-item--boxed" : "";
+}
+
+<div class="grid-item grid-item--acc @(boxedColumnClass)">
+    @if (Model.Accordion != null)
+    {
+        foreach (var accItem in Model.Accordion)
+        {
+            <div class="acc">
+                <button class="acc__head">
+                    @accItem.Header
+                    <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                </button>
+                <div class="acc__body">
+                    @accItem.Text
+                </div>
+            </div>
+        }
+    }
+</div>

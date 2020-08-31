@@ -1,0 +1,210 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage
+@using Igloo.Extensions
+
+<div class="theme-explorer" data-current-node="@Umbraco.AssignedContentItem.Id" data-theme-node="@(Umbraco.AssignedContentItem?.Root()?.FirstChildOfType("websiteSettings")?.FirstChildOfType("theme")?.Id)">
+
+    <button class="theme-explorer__toggle" title="Toggle Theme Explorer">
+        <i class="fa fa-paint-brush" aria-hidden="true"></i>
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+    </button>
+
+    <div class="theme-explorer__nav">
+        <button class="active" data-section="color">Colors</button>
+        <button data-section="text">Text</button>
+        <button data-section="header">Header</button>
+        <button data-section="footer">Footer</button>
+        <button data-section="grid">Grid</button>
+        <button data-section="forms">Forms</button>
+    </div>
+
+    <div class="theme-explorer__section active" id="color">
+        <div class="theme-explorer__item">
+            <label for="" class="form-label">Theme</label>
+            <input data-prop="--theme" class="theme-explorer__input theme-explorer__input--color jscolor {width:250, height:150, position:'left', borderColor:'#FFF', insetColor:'#FFF', backgroundColor:'#fff'}">
+        </div>
+        <div class="theme-explorer__item">
+            <label for="" class="form-label">Theme Contrast</label>
+            <input data-prop="--theme-contrast" class="theme-explorer__input theme-explorer__input--color jscolor {width:250, height:150, position:'left', borderColor:'#FFF', insetColor:'#FFF', backgroundColor:'#fff'}">
+        </div>
+        <div class="theme-explorer__item">
+            <label for="" class="form-label">Theme Alt</label>
+            <input data-prop="--theme-alt" class="theme-explorer__input theme-explorer__input--color jscolor {width:250, height:150, position:'left', borderColor:'#FFF', insetColor:'#FFF', backgroundColor:'#fff'}">
+        </div>
+        <div class="theme-explorer__item">
+            <label for="" class="form-label">Theme Alt Contrast</label>
+            <input data-prop="--theme-alt-contrast" class="theme-explorer__input theme-explorer__input--color jscolor {width:250, height:150, position:'left', borderColor:'#FFF', insetColor:'#FFF', backgroundColor:'#fff'}">
+        </div>
+        <div class="theme-explorer__item">
+            <label for="" class="form-label">Heading Dark</label>
+            <input data-prop="--heading-dark" class="theme-explorer__input theme-explorer__input--color jscolor {width:250, height:150, position:'left', borderColor:'#FFF', insetColor:'#FFF', backgroundColor:'#fff'}">
+        </div>
+        <div class="theme-explorer__item">
+            <label for="" class="form-label">Text Dark</label>
+            <input data-prop="--text-dark" class="theme-explorer__input theme-explorer__input--color jscolor {width:250, height:150, position:'left', borderColor:'#FFF', insetColor:'#FFF', backgroundColor:'#fff'}">
+        </div>
+        <div class="theme-explorer__item">
+            <label for="" class="form-label">Heading Light</label>
+            <input data-prop="--heading-light" class="theme-explorer__input theme-explorer__input--color jscolor {width:250, height:150, position:'left', borderColor:'#FFF', insetColor:'#FFF', backgroundColor:'#fff'}">
+        </div>
+        <div class="theme-explorer__item">
+            <label for="" class="form-label">Text Light</label>
+            <input data-prop="--text-light" class="theme-explorer__input theme-explorer__input--color  jscolor {width:250, height:150, position:'left', borderColor:'#FFF', insetColor:'#FFF', backgroundColor:'#fff'}">
+        </div>
+        <div class="theme-explorer__item">
+            <label for="" class="form-label">Background Light</label>
+            <input data-prop="--background-light" class="theme-explorer__input theme-explorer__input--color jscolor {width:250, height:150, position:'left', borderColor:'#FFF', insetColor:'#FFF', backgroundColor:'#fff'}">
+        </div>
+        <div class="theme-explorer__item">
+            <label for="" class="form-label">Background Dark</label>
+            <input data-prop="--background-dark" class="theme-explorer__input theme-explorer__input--color jscolor {width:250, height:150, position:'left', borderColor:'#FFF', insetColor:'#FFF', backgroundColor:'#fff'}">
+        </div>
+        <div class="theme-explorer__item">
+            <label for="" class="form-label">Selected Nav</label>
+            <input data-prop="--selected-nav-item" class="theme-explorer__input theme-explorer__input--color jscolor {width:250, height:150, position:'left', borderColor:'#FFF', insetColor:'#FFF', backgroundColor:'#fff'}">
+        </div>
+    </div>
+
+    <div class="theme-explorer__section " id="header">
+        <div class="theme-explorer__item theme-explorer__item--full">
+            <label for="" class="form-label">Theme</label>
+            <select id="--header-theme" name="" class="theme-explorer__select" data-scope=".top">
+                <option value="top--light">Light</option>
+                <option value="top--dark">Dark</option>
+            </select>
+        </div>
+        <div class="theme-explorer__item">
+            <label for="" class="form-label">Nav Position</label>
+            <select id="--header-nav" name="" class="theme-explorer__select" data-scope=".top">
+                <option value="top--navigation-left">Left</option>
+                <option value="top--navigation-center">Center</option>
+                <option value="top--navigation-right">Right</option>
+                <option value="top--navigation-left-logo-center">Left Logo Center</option>
+            </select>
+        </div>
+        <div class="theme-explorer__item">
+            <label for="" class="form-label">Container</label>
+            <select id="--header-container" name="" class="theme-explorer__select" data-scope=".top">
+                <option value="top--small-width">Small</option>
+                <option value="top--standard-width">Standard</option>
+                <option value="top--big-width">Big</option>
+                <option value="top--full-width">Full width</option>
+            </select>
+        </div>
+        <div class="theme-explorer__item">
+            <label for="" class="form-label">Height</label>
+            <input data-prop="--header-height" data-alias="headerHeight" class="theme-explorer__input theme-explorer__input--text" type="number">
+        </div>
+        <div class="theme-explorer__item">
+            <label for="" class="form-label">Height Mobile</label>
+            <input data-prop="--header-height-mobile" data-alias="headerHeightMobile" data-size="992" value="@Model.SettingsValue("logoHeightMobile", "").ToString().Replace("px", "")" class="theme-explorer__input theme-explorer__input--text" type="number">
+        </div>
+        <div class="theme-explorer__item">
+            <label for="" class="form-label">Logo Padding</label>
+            <input data-prop="--logo-padding" class="theme-explorer__input theme-explorer__input--text" type="number">
+        </div>
+        <div class="theme-explorer__item">
+            <label for="" class="form-label">Logo Padding Mobile</label>
+            <input data-prop="--logo-padding" data-alias="logoPaddingMobile" data-size="992" value="@Model.SettingsValue("logoPaddingMobile", "").ToString().Replace("px", "")" class="theme-explorer__input theme-explorer__input--text" type="number">
+        </div>
+        <div class="theme-explorer__item">
+            <label for="" class="form-label">Nav Padding</label>
+            <input data-prop="--navigation-padding" class="theme-explorer__input theme-explorer__input--text" type="number">
+        </div>
+        <div class="theme-explorer__item">
+            <label for="" class="form-label">Nav Padding Small Screen</label>
+            <input data-prop="--navigation-padding" data-alias="navigationPaddingSmallerScreens" data-size="1200" value="@Model.SettingsValue("navigationPaddingSmallerScreens", "").ToString().Replace("px", "")" class="theme-explorer__input theme-explorer__input--text" type="number">
+        </div>
+
+    </div>
+
+    <div class="theme-explorer__section" id="footer">
+
+        <div class="theme-explorer__item theme-explorer__item--full">
+            <label for="" class="form-label">Theme</label>
+            <select id="--footer-theme" name="" class="theme-explorer__select" data-scope=".footer">
+                <option value="footer--light" data-remove="light-color">Light</option>
+                <option value="footer--dark" data-extra="light-color">Dark</option>
+            </select>
+        </div>
+        <div class="theme-explorer__item theme-explorer__item--full">
+            <label for="" class="form-label">Container</label>
+            <select id="--footer-container" name="" class="theme-explorer__select" data-scope=".footer-grid">
+                <option value="container--small" data-extra="container">Small</option>
+                <option value="container">Standard</option>
+                <option value="container--big" data-extra="container">Big</option>
+                <option value="container--fluid" data-extra="container">Full width</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="theme-explorer__section" id="grid">
+        <div class="theme-explorer__item">
+            <label for="" class="form-label">Container Small</label>
+            <input data-prop="--grid-width-small" class="theme-explorer__input theme-explorer__input--text" type="number">
+        </div>
+        <div class="theme-explorer__item">
+            <label for="" class="form-label">Container</label>
+            <input data-prop="--grid-width" class="theme-explorer__input theme-explorer__input--text" type="number">
+        </div>
+        <div class="theme-explorer__item">
+            <label for="" class="form-label">Container Big</label>
+            <input data-prop="--grid-width-big" class="theme-explorer__input theme-explorer__input--text" type="number">
+        </div>
+        <div class="theme-explorer__item">
+            <label for="" class="form-label">Gutter</label>
+            <input data-prop="--grid-gutter" class="theme-explorer__input theme-explorer__input--text" type="number">
+        </div>
+        <div class="theme-explorer__item">
+            <label for="" class="form-label">Gutter Medium Screen</label>
+            <input data-prop="--grid-gutter" data-alias="gridGutterMedium" data-size="992" value="@Model.SettingsValue("gridGutterMedium", "").ToString().Replace("px", "")" class="theme-explorer__input theme-explorer__input--text" type="number">
+        </div>
+        <div class="theme-explorer__item">
+            <label for="" class="form-label">Gutter Small Screen</label>
+            <input data-prop="--grid-gutter" data-alias="gridGutterSmall" data-size="768" value="@Model.SettingsValue("gridGutterSmall", "").ToString().Replace("px", "")" class="theme-explorer__input theme-explorer__input--text" type="number">
+        </div>
+        <div class="theme-explorer__item">
+            <label for="" class="form-label">Gutter XS Screen</label>
+            <input data-prop="--grid-gutter" data-alias="gridGutterXS" data-size="480" value="@Model.SettingsValue("gridGutterXS", "").ToString().Replace("px", "")" class="theme-explorer__input theme-explorer__input--text" type="number">
+        </div>
+
+    </div>
+
+    <div class="theme-explorer__section" id="text">
+        <div class="theme-explorer__item theme-explorer__item--full">
+            <label for="" class="form-label">Heading Font</label>
+            <select name="" class="theme-explorer__font" data-prop="--heading-font">
+                <option disabled selected>Select Font</option>
+            </select>
+            <input type="hidden" class="font-hidden" name="heading-font">
+        </div>
+        <div class="theme-explorer__item theme-explorer__item--full">
+            <label for="" class="form-label">Body Font</label>
+            <select name="" class="theme-explorer__font" data-prop="--body-font">
+                <option disabled selected>Select Font</option>
+            </select>
+            <input type="hidden" class="font-hidden" name="body-font">
+        </div>
+        <div class="theme-explorer__item theme-explorer__item--full">
+            <label class="cb-wrap">
+                <input type="checkbox" class="toggle-design-mode"><strong>Enable Text Edit</strong><br> <span>Makes all the text on this page editable</span>
+                <span class="checkmark"></span>
+            </label>
+        </div>
+    </div>
+
+    <div class="theme-explorer__section" id="forms">
+        <div class="theme-explorer__item theme-explorer__item--full">
+            <label for="" class="form-label">Button Border Radius</label>
+            <input data-prop="--button-border-radius" class="theme-explorer__input theme-explorer__input--text" type="number">
+        </div>
+    </div>
+    @if (HttpContext.Current.Request.Cookies["UMB-XSRF-TOKEN"] != null)
+    {
+        <div class="theme-explorer__save">
+            <button class="button button--small button--block" style="color: #fff !important; border: 1px #2bc37c; background-color: #2bc37c; border-radius: 3px;">Save</button>
+        </div>
+    }
+    <div class="theme-explorer-saving">
+
+    </div>
+</div>

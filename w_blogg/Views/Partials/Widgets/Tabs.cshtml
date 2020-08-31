@@ -1,0 +1,62 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.Tabs>
+@using ContentModels = Umbraco.Web.PublishedModels;
+@using Umbraco.Web.PublishedModels
+@using Igloo.Extensions
+@using Igloo.Helpers
+@{
+	var order = (int)ViewData["order"];
+    var theme = Model.ThemeColor?.ToString();
+    var themeClass = string.IsNullOrWhiteSpace(theme) ? "tabs--white" : "tabs--" + theme;
+}
+
+<section class="tabs @themeClass">
+
+    <nav class="tabs__nav">
+        @if(Model.TabsList != null && Model.TabsList.Any()){
+        	<ul>
+        	    @{var i = 0;}
+        	    @foreach(Tab tab in Model.TabsList){
+        		    <li><a href="#@formatLink(tab.Title)" class="@(i == 0 ? "active" : "")">@tab.Title</a></li>
+        		    i++;
+        		}
+        	</ul>
+    	}
+    </nav>
+    
+    <div class="tabs__container">
+        
+        @if(Model.TabsList != null){
+            var x = 0;
+        	foreach(Tab tab in Model.TabsList){
+        	    <div id="@formatLink(tab.Title)" class="tab @(x == 0 ? "tab--active" : "")">
+            		<div class="tab__body">
+            		    
+            		   @{ var widgets = tab.Value<IEnumerable<IPublishedElement>>("widgets"); }
+            
+                       @if(widgets != null && widgets.Any()){
+                            foreach (var widget in widgets)
+                            {
+                                @RenderWidget(widget, 1)
+                            }
+                       }
+            
+            		</div>
+        	    </div>
+        	    x++;
+        	}
+        }
+        
+    </div>
+
+</section>
+
+@helper formatLink(string word){
+    @word.Replace(" ", "-").Replace("&", "").Replace("?", "").Replace("/", "").Replace(".", "").Replace(",", "").ToLower();
+}
+
+@helper RenderWidget(IPublishedElement widget, int order)
+{
+    var widgetPartialViewResolver = new PartialViewResolver();
+    var partialView = widgetPartialViewResolver.GetWidgetPartialViewRoute(widget.ContentType.Alias);
+    @Html.Partial(partialView, widget, new ViewDataDictionary { { "order", order } });
+}

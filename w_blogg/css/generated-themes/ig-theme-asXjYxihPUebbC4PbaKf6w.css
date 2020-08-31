@@ -1,0 +1,88 @@
+:root {
+    /* Base */
+    --white: #fff;
+    --black: #000;
+    
+    /* Theme */
+    --theme: #1AB6BC;
+    --theme-rgb: 26, 182, 188;
+    --theme-darker: #107072;
+    --theme-contrast: #EFFBF9;
+    
+    /* Theme alt */
+    --theme-alt: #1A4FAD;
+    --theme-alt-darker: #102F67;
+    --theme-alt-contrast: #fff;
+    
+    /* Dark */
+    --heading-dark: #2c3e50;
+    --text-dark: #2c3e50;
+    --background-dark: #2c3e50;
+    --background-dark-lighter: #2F4255;
+    --border-dark: rgba(0, 0, 0, 0.08);
+    
+    /* Light */
+    --heading-light: #ecf0f1;
+    --text-light: #ecf0f1;
+    --background-light: #ecf0f1;
+    --border-light: rgba(255, 255, 255, 0.1);
+    
+    /* Header */
+    --selected-nav-item: #F11BBB;
+    --header-height: 70px;
+    --logo-padding: 26px;
+    --navigation-padding: 20px;
+    --pre-top-height: 30px;
+    --top-combo-calc: calc(var(--header-height) + var(--pre-top-height));
+    
+    /* Grid */
+    --grid-width-small: 830px;
+    --grid-width: 1200px;
+    --grid-width-big: 1500px;
+    --grid-gutter: 30px;
+    --grid-gutter-half: calc(var(--grid-gutter) / 2);
+    
+    /* Buttons */
+    --button-border-radius: 4px;
+    
+    /* Typography */
+    --body-font: Roboto, sans-serif;
+    --heading-font: Roboto, sans-serif;
+    --font-size: 1.1rem;
+    --font-size-big: 1.25rem;
+    
+    --font-weight-normal: normal;
+    --font-weight-light: 300;
+    --font-weight-bold: bold;
+    --font-weight-bolder: bolder;
+    
+    --body-font-weight: var(--font-weight-normal);
+    --heading-font-weight: var(--font-weight-bold);
+    
+    /* Validation */
+    --success: #2ecc71;
+    --error: #e74c3c;
+}
+@media only screen and (max-width: 1200px) {
+  :root {
+    --navigation-padding: 20px;
+  }
+}
+@media only screen and (max-width: 992px) {
+  :root {
+    --header-height: 50px;
+    --grid-gutter: 15px;
+    --logo-padding: 16px;
+  }
+}
+@media only screen and (max-width: 768px) {
+  :root {
+    --grid-gutter: 10px;
+  }
+}
+@media only screen and (max-width: 480px) {
+  :root {
+    --grid-gutter: 5px;
+  }
+}
+

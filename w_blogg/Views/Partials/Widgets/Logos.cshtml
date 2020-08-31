@@ -1,0 +1,85 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.Logos>
+@using ContentModels = Umbraco.Web.PublishedModels;
+@using Igloo.Models
+@using Igloo.Extensions
+@using Umbraco.Web.Models
+@{
+    var containerWidthClass = "container";
+    switch(Model.ContainerWidth)
+	{
+		case "small":
+			containerWidthClass = "container container--small";
+			break;  
+		case "standard":
+			containerWidthClass = "container";
+			break;  
+		case "big":
+			containerWidthClass = "container container--big";
+			break;  
+		case "full width":
+			containerWidthClass = "container-fluid";
+			break;  
+	}
+	
+	var compactClass = Model.Compact ? "block--compact" : "";
+	var blackWhiteClass = Model.BlackWhite ? "black-and-white" : "";
+	
+	var textColorClass = Model.TextColor?.ToString() == "white" ? "light-color" : ""; 
+    var backgroundColor = Model.BackgroundColor?.ToString();
+    var backgroundColorClass = string.IsNullOrWhiteSpace(backgroundColor) ? "gray-bg" : backgroundColor + "-bg";
+	
+}
+<section class="block logos @(backgroundColorClass) @(textColorClass) @(compactClass)">
+		
+	@if(Model.PreHeading != "" || Model.Heading != "" || Model.Text.ToString() != ""){
+	
+		<div class="block__header">
+			@if(Model.PreHeading != ""){
+				<h6 class="pre-head">@Model.PreHeading</h6>
+			}
+			@if(Model.Heading != ""){
+				<h2>@Model.Heading</h2>
+			}
+			@if(Model.Text.ToString() != ""){
+				<div class="block__header-text">
+					@Model.Text
+				</div>
+			}			
+		</div>
+	}
+	
+	<div class="block__body">
+
+		<div class="@(containerWidthClass)">
+
+			<div class="row row--center">
+                
+                <div class="col-100">
+                    
+                    @if(Model.LogoItems != null && Model.LogoItems.Any())
+                    {
+						<ul class="logos @(blackWhiteClass)">
+							@foreach (ContentModels.Logo logo in Model.LogoItems)
+							{
+								if (logo.LogoImage != null)
+								{
+    								<li style="width: @(logo.CustomWidth == "" ? "120px" : logo.CustomWidth)">
+    									@if(logo.Link != null)
+    									{
+    										<a href="@(logo.Link.Url)" target="@(logo.Link.Target)" title="@(logo.Link.Name)"><img src="@logo.LogoImage.Url"></a>
+    									}
+    									else
+    									{
+    										<div><img src="@logo.LogoImage.Url"></div>
+    									}
+    								</li>
+								}
+							}
+						</ul>
+					}
+                  
+                </div>
+			</div>
+		</div>
+	</div>
+</section>

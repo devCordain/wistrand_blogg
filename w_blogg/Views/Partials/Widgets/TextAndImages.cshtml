@@ -1,0 +1,86 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.TextAndImages>
+@using ContentModels = Umbraco.Web.PublishedModels;
+@using Igloo.Extensions
+@{
+	var order = (int)ViewData["order"];
+	var removeImageBorder = Model.RemoveImageBorder ? "split__image--no-border" : "";
+	var containImage = Model.ContainImage ? "split__image--contain" : "";
+    var height = Model.Height == null ? "" : Model.Height.Replace("%", "");
+	var animateClass = Model.Animate ? "animate" : "";
+
+	var textColorClass = Model.TextColor?.ToString() == "white" ? "light-color" : ""; 
+    var backgroundColor = Model.BackgroundColor?.ToString();
+    var backgroundColorClass = string.IsNullOrWhiteSpace(backgroundColor) ? "white-bg" : backgroundColor + "-bg";
+	
+	var containerWidthClass = "split--full";
+    switch(Model.ContainerWidth)
+	{
+		case "small":
+			containerWidthClass = "split--small";
+			break;  
+		case "standard":
+			containerWidthClass = "split--standard";
+			break;  
+		case "big":
+			containerWidthClass = "split--big";
+			break;  
+		case "full width":
+			containerWidthClass = "split--full";
+			break;  
+	}
+}
+
+<section class="split-wrap @(backgroundColorClass) @(textColorClass) @(animateClass)">
+    
+    <div class="split split--@(height) split--text-@(Model.TextBlockPlacement) @(containerWidthClass)">
+    			
+    	<div class="split__text">
+    		
+    		<div class="split__text-inner">
+    
+    			@if(Model.PreHeading != ""){
+    				<h6 class="pre-head">@Model.PreHeading</h6>
+    			}
+    			@if(Model.Heading != ""){
+    				if(order == 0){
+    					<h1>@Model.Heading</h1>
+    				}
+    				else{
+    					<h2>@Model.Heading</h2>
+    				}
+    			}
+    			@if(Model.Text.ToString() != ""){
+    				@Model.Text
+    			}
+    			
+    			@if(Model.Buttons != null && Model.Buttons.Any()){
+                    <div class="button-wrap">
+                        @foreach(var button in Model.Buttons){
+                            @Html.Partial("~/Views/Partials/Widgets/RenderButton.cshtml", button)
+                        }
+                    </div>
+                }
+    							
+    		</div>
+    
+    	</div>	
+    	
+    	
+    	@if (Model.Images != null)
+    	{
+    		<div class="split__image split__image--@Model.Images.Count() @removeImageBorder @containImage">
+    			@foreach (var mediaItem in Model.Images)
+            	{	
+    				<div class="split__image-item lazyload"
+    				    data-sizes="auto"
+    				    data-bgset="@(mediaItem.Url)?upscale=false&width=500 500w,
+                		@(mediaItem.Url)?upscale=false&width=700 700w,
+                		@(mediaItem.Url)?upscale=false&width=1000 1000w"
+    				></div>
+    			}
+    		</div>
+    	}
+    
+    </div>
+
+</section>

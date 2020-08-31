@@ -1,0 +1,6 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.ColumnText>
+@using ContentModels = Umbraco.Web.PublishedModels;
+
+<div class="grid-item grid-item--text @(Model.BoxedColumn ? "grid-item--boxed" : "")">
+    @Model.Text
+</div>

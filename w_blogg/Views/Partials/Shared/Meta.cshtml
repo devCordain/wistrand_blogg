@@ -1,0 +1,88 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage
+@using ContentModels = Umbraco.Web.PublishedModels;
+@using Umbraco.Web.PublishedModels
+@using Igloo.Extensions
+@{
+    var site = Model.Root() as ContentModels.Site;
+    var page = new ContentModels.Page(Umbraco.AssignedContentItem);
+
+    var title = (
+        !string.IsNullOrEmpty(page.MetaTitle) ?
+        page.MetaTitle :
+        page.Name) +
+        Model.SettingsValue("titleSignature", "");
+
+    var description = !string.IsNullOrEmpty(page.MetaDescription) ?
+        page.MetaDescription : site.MetaDescription;
+
+    var ogImage = site.MetaImage?.Url(mode: UrlMode.Absolute) ?? "";
+    ogImage = page.MetaImage?.Url(mode: UrlMode.Absolute) ?? ogImage;
+    ogImage = page.Value<IPublishedContent>("postImage")?.Url(mode: UrlMode.Absolute) ?? ogImage;
+
+    var twitterUsername = Model.SettingsValue("twitterUsername", "");
+
+    var iconBackgroundColor = Model.SettingsValue("iconBackgroundColor", "#FFFFFF");
+
+    var favicon = Model.SettingsValue<IPublishedContent>("favicon", null);
+    var appicon = Model.SettingsValue<IPublishedContent>("appIcon", null);
+
+    var siteName = Model.SettingsValue("siteName", "");
+    var email = Model.SettingsValue("companyEmail", "");
+    var latitude = Model.SettingsValue("companyLatitude", "");
+    var longitude = Model.SettingsValue("companyLongitude", "");
+    var phoneNumber = Model.SettingsValue("companyPhoneNumber", "");
+}
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>@(title)</title>
+<meta name="description" content="@(description)">
+
+<meta property="og:title" content="@(title)" />
+<meta property="og:type" content="website" />
+<meta property="og:description" content="@(description)" />
+<meta property="og:url" content="@(Model.Url(mode: UrlMode.Absolute))">
+<meta name="twitter:card" content="summary_large_image">
+@if (twitterUsername != "")
+{<meta name="twitter:site" content="@(twitterUsername)">}
+<meta name="twitter:title" content="@(title)">
+<meta name="twitter:description" content="@(description)">
+@if (ogImage != "")
+{
+    <meta property="og:image" content="@(ogImage)?upscale=false&width=1200" />
+    <meta name="twitter:image" content="@(ogImage)?upscale=false&width=1200">
+}
+
+@if (siteName != "")
+{<meta name="og:site_name" content="@siteName" />}
+@if (email != "")
+{<meta name="og:email" content="@email" />}
+@if (latitude != "" && longitude != "")
+{
+    <meta name="og:latitude" content="@latitude" />
+    <meta name="og:longitude" content="@longitude" />
+}
+@if (phoneNumber != "")
+{<meta name="og:phone_number" content="@phoneNumber" />}
+
+@if (appicon != null){
+
+    <link rel="apple-touch-icon" sizes="57x57" href="@appicon.GetCropUrl(57, 57)">
+    <link rel="apple-touch-icon" sizes="60x60" href="@appicon.GetCropUrl(60, 60)">
+    <link rel="apple-touch-icon" sizes="72x72" href="@appicon.GetCropUrl(72, 72)">
+    <link rel="apple-touch-icon" sizes="76x76" href="@appicon.GetCropUrl(76, 76)">
+    <link rel="apple-touch-icon" sizes="114x114" href="@appicon.GetCropUrl(114, 114)">
+    <link rel="apple-touch-icon" sizes="120x120" href="@appicon.GetCropUrl(120, 120)">
+    <link rel="apple-touch-icon" sizes="144x144" href="@appicon.GetCropUrl(144, 144)">
+    <link rel="apple-touch-icon" sizes="152x152" href="@appicon.GetCropUrl(152, 152)">
+    <link rel="apple-touch-icon" sizes="180x180" href="@appicon.GetCropUrl(180, 180)">
+}
+@if (favicon != null){
+    <link rel="icon" type="image/png" sizes="192x192" href="@favicon.GetCropUrl(192, 192)">
+    <link rel="icon" type="image/png" sizes="32x32" href="@favicon.GetCropUrl(32, 32)">
+    <link rel="icon" type="image/png" sizes="96x96" href="@favicon.GetCropUrl(96, 96)">
+    <link rel="icon" type="image/png" sizes="16x16" href="@favicon.GetCropUrl(16, 16)">
+    <meta name="msapplication-TileColor" content="@(iconBackgroundColor)">
+    <meta name="msapplication-TileImage" content="@favicon.GetCropUrl(144, 144)">
+}

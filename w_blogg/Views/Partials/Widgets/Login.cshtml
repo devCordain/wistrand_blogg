@@ -1,0 +1,55 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.Login>
+@using ContentModels = Umbraco.Web.PublishedModels;
+@using System.Web.Mvc.Html
+@using ClientDependency.Core.Mvc
+@using Umbraco.Web
+@using Umbraco.Web.Models
+@using Umbraco.Web.Controllers
+@{
+
+    var order = (int)ViewData["order"];
+    
+    var textColorClass = Model.TextColor?.ToString() == "white" ? "light-color" : ""; 
+    var backgroundColor = Model.BackgroundColor?.ToString();
+    var backgroundColorClass = string.IsNullOrWhiteSpace(backgroundColor) ? "gray-bg" : backgroundColor + "-bg";
+	
+	var loginModel = new LoginModel();
+    loginModel.RedirectUrl = Model.RedirectUrl != null ? Model.RedirectUrl.Url : "/";
+
+}
+
+<section class="account-form">
+    <div class="account-form__inner @backgroundColorClass @textColorClass">
+        <div class="account-form__content">
+            
+           @if (Model.Heading != "")
+            {
+                if (order == 0)
+                {
+                    <h1 class="h2">@Model.Heading</h1>
+                }
+                else
+                {
+                    <h2>@Model.Heading</h2>
+                }
+            }
+            @Model.Text
+            
+            @Html.Raw(ViewData["errors"])
+            
+            @Html.Partial("~/Views/Partials/Shared/LoginForm.cshtml",  loginModel)
+            
+        </div>
+    </div>
+    
+    @if(Model.Image != null){
+        <div class="account-form__media lazyload hide--m"
+             data-bgset="@(Model.Image.Url)?upscale=false&width=1280 1280w,
+    		@(Model.Image.Url)?upscale=false&width=1600 1600w,
+    		@(Model.Image.Url)?upscale=false&width=1920 1920w"
+             data-sizes="auto">
+        </div>
+    }
+    
+</section>
+

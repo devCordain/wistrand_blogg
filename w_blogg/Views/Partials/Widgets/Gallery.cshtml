@@ -1,0 +1,125 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.Gallery>
+@using ContentModels = Umbraco.Web.PublishedModels;
+@using Igloo.Extensions
+@using Igloo.Helpers
+@{
+    var images = Model.Media;
+    
+    var removeImageBorder = Model.RemoveImageBorder ? "gallery--no-border" : "";
+    var animateClass = Model.Animate ? "animate" : "";
+	
+    var backgroundColor = Model.BackgroundColor?.ToString();
+    var backgroundColorClass = string.IsNullOrWhiteSpace(backgroundColor) ? "white-bg" : backgroundColor + "-bg";
+	
+    var containerWidthClass = "";
+    switch(Model.ContainerWidth)
+	{
+		case "small":
+			containerWidthClass = "container container--small";
+			break;  
+		case "standard":
+			containerWidthClass = "container";
+			break;  
+		case "big":
+			containerWidthClass = "container container--big";
+			break;  
+		case "full width":
+			containerWidthClass = "";
+			break;  
+	}
+	
+	var imageWidth = Model.ImageWidth == null ? "" : Model.ImageWidth.Replace("%", "");
+	var imageWidthClass = "25 col-m-50";
+	switch(imageWidth)
+	{
+	    case "10":
+	        imageWidthClass = "10 col-m-20";
+	        break;
+	    case "16":
+	        imageWidthClass = "16 col-m-33";
+	        break; 
+	    case "20":
+	        imageWidthClass = "20 col-m-33 col-s-50";
+	        break;  
+	    case "25":
+	        imageWidthClass = "25 col-m-50";
+	        break;     
+	    case "33":
+	        imageWidthClass = "33 col-m-50";
+	        break;       
+	    case "50":
+	        imageWidthClass = "50 col-m-100";
+	        break;   
+	}
+}
+
+@if(Model.DisableGalleryZoom){
+	<section class="gallery-simple @(backgroundColorClass) @(removeImageBorder) @(animateClass)">
+		<div class="@(containerWidthClass)">
+			<div class="row row--flat row--center">
+				@if (images != null)
+				{
+					foreach (var mediaItem in images)
+					{	
+						<div class="col-@(imageWidthClass)">
+							<figure class="gallery__item">
+								<img class="lazyload"
+								    src="@(mediaItem.GetCropUrl(10,10))"
+								    data-sizes="auto"
+								    data-srcset="@(mediaItem.GetCropUrl(300,300)) 300w,
+								    @(mediaItem.GetCropUrl(500,500)) 500w,
+								    @(mediaItem.GetCropUrl(750,750)) 750w,
+								    @(mediaItem.GetCropUrl(1000,1000)) 1000w" 
+								    alt="">
+							</figure>	
+						</div>
+					}
+				}
+			</div>
+		</div>
+	</section>
+}
+else{
+	<section class="gallery @(backgroundColorClass) @(removeImageBorder) @(animateClass)">
+		<div class="@(containerWidthClass)">
+			<div class="row row--flat row--center">
+				@if (images != null)
+				{
+					foreach (var mediaItem in images)
+					{	
+						float fullMediaWidth = Convert.ToInt32(mediaItem.Value("umbracoWidth"));
+						float fullMediaHeight = Convert.ToInt32(mediaItem.Value("umbracoHeight"));
+						float newWidth = fullMediaWidth;
+						float newHeight = fullMediaHeight;
+						double calculatedHeight = fullMediaHeight;
+
+						if(fullMediaWidth > 2000){
+							float ratio = 0;
+							ratio = fullMediaHeight/fullMediaWidth;
+							newWidth = 2000;
+							newHeight = newWidth * ratio;
+							calculatedHeight = Math.Ceiling(newHeight);	
+						}
+					
+						<figure class="col-@(imageWidthClass)" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+							<a href="@mediaItem.Url?width=@newWidth" class="gallery__item" itemprop="contentUrl" data-size="@(newWidth)x@(calculatedHeight)">
+							  <img itemprop="thumbnail" class="lazyload"
+							        src="@(mediaItem.GetCropUrl(10,10))"
+								    data-sizes="auto"
+								    data-srcset="@(mediaItem.GetCropUrl(300,300)) 300w,
+								    @(mediaItem.GetCropUrl(500,500)) 500w,
+								    @(mediaItem.GetCropUrl(750,750)) 750w,
+								    @(mediaItem.GetCropUrl(1000,1000)) 1000w" 
+								    alt="">
+							</a>
+						</figure>	
+					}
+				}
+			</div>
+		</div>
+	</section>
+}
+
+
+
+

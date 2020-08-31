@@ -1,0 +1,18 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.FooterText>
+@using ContentModels = Umbraco.Web.PublishedModels;
+
+<div class="footer-item footer-item--text text-@(Model.AlignContent)">
+
+    @if (Model.Heading != "")
+    {
+        <h2 class="h6">@Model.Heading</h2>
+    }
+    <div>
+        @Model.Text
+    </div>
+    <div class="button-wrap">
+        @foreach(var button in Model.Buttons){
+            @Html.Partial("~/Views/Partials/Widgets/Renderbutton.cshtml", button)
+        }
+    </div>
+</div>

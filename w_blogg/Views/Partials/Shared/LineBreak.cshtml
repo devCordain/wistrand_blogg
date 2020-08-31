@@ -1,0 +1,13 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.LineBreak>
+@using ContentModels = Umbraco.Web.PublishedModels;
+@{
+    var drawLine = Model.DrawLine ? "line-break--divider" : "";
+}
+<div class="line-break @(drawLine)" 
+    @if(Model.CustomHeight != ""){
+        <text>
+            style="height: @(Model.CustomHeight);"
+        </text>
+    }
+    >
+</div>

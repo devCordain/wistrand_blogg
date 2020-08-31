@@ -1,0 +1,30 @@
+﻿@using Igloo.Helpers
+@inherits UmbracoViewPage<IPublishedContent>
+@{
+    Layout = null;
+    var globalContents = Model.Value<List<IPublishedContent>>("globalContent");
+    
+}
+
+@if (globalContents != null)
+{
+    foreach (var globalContent in globalContents)
+    {
+        var widgets = globalContent.Value<List<IPublishedContent>>("widgets");
+        
+        if (widgets != null)
+        {
+            foreach (var widget in widgets)
+            {
+                @RenderWidget(widget, 1)
+            }
+        }
+    }
+}
+
+@helper RenderWidget(IPublishedContent widget, int order)
+{
+    var widgetPartialViewResolver = new PartialViewResolver();
+    var partialView = widgetPartialViewResolver.GetWidgetPartialViewRoute(widget.ContentType.Alias);
+    @Html.Partial(partialView, widget, new ViewDataDictionary { { "order", order } });
+}

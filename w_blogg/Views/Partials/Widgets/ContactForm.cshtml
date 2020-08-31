@@ -1,0 +1,121 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.ContactForm>
+@using ContentModels = Umbraco.Web.PublishedModels;
+@using Igloo.Extensions  
+@using Igloo.Controllers      
+@{
+    var order = (int)ViewData["order"];
+
+    var emailTo = Umbraco.AssignedContentItem.SettingsValue("contactFormEmailTo", "");
+    var currentID = Umbraco.AssignedContentItem.Id;
+    var currentCulture = System.Threading.Thread.CurrentThread.CurrentCulture.Name;
+    
+    var textColorClass = Model.TextColor?.ToString() == "white" ? "light-color" : ""; 
+    var backgroundColor = Model.BackgroundColor?.ToString();
+    var backgroundColorClass = string.IsNullOrWhiteSpace(backgroundColor) ? "white-bg" : backgroundColor + "-bg";
+    
+    var containerWidthClass = "container";
+    switch(Model.ContainerWidth)
+	{
+		case "small":
+			containerWidthClass = "container container--small";
+			break;  
+		case "standard":
+			containerWidthClass = "container";
+			break;  
+		case "big":
+			containerWidthClass = "container container--big";
+			break;  
+		case "full width":
+			containerWidthClass = "container-fluid";
+			break;  
+	}
+	
+	var backgroundMediaUrl = Model.BackgroundImage != null ? Model.BackgroundImage.Url : "";
+	
+    if (backgroundMediaUrl != "")
+    {
+        backgroundColorClass = "";
+	}
+}
+
+@if (emailTo != "")
+{
+
+	<section class="block form @(backgroundColorClass) @(textColorClass)">
+	   
+    	@if(Model.PreHeading != "" || Model.Heading != "" || Model.Text.ToString() != "")
+    	{
+    		<div class="block__header">
+    			@if(Model.PreHeading != ""){
+    				<h6 class="pre-head">@Model.PreHeading</h6>
+    			}
+    			@if(Model.Heading != ""){
+    				if(order == 0){
+    					<h1>@Model.Heading</h1>
+    				}
+    				else{
+    					<h2>@Model.Heading</h2>
+    				}
+    			}	
+    			@if(Model.Text.ToString() != ""){
+    				<div class="block__header-text">
+    					@Model.Text
+    				</div>
+    			}			
+    		</div>
+    	}
+    	
+		<div class="block__body">
+            <form action="@(Url.GetUmbracoApiService<IglooContactFormController>("HandleContactForm"))" data-thankyoumessage="@Model.MessageSentText" id="contact-form">
+                @Html.AntiForgeryToken()
+
+                <input id="ParentModelID" name="ParentModelID" type="hidden" value="@currentID">
+                <input id="Culture" name="Culture" type="hidden" value="@currentCulture" />
+                <div class="@containerWidthClass">
+                    <div class="row">
+
+                        <div class="col-50 col-s-100">
+                            <label for="Name">@Umbraco.GetDictionaryValue("Name") <span class="error-color">*</span></label>
+                            <div class="form-validate-wrap">
+                                <input autocomplete="off" id="Name" name="Name" required="required" type="text" value="">
+                                <i class="fa fa-check-circle" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <div class="col-50 col-s-100">
+                            <label for="Email">@Umbraco.GetDictionaryValue("Email") <span class="error-color">*</span></label>
+                            <div class="form-validate-wrap">
+                                <input autocomplete="off" id="Email" name="Email" required="required" type="email" value="">
+                                <i class="fa fa-check-circle" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <div class="col-100 col-s-100">
+                            <label for="Message">@Umbraco.GetDictionaryValue("Message") <span class="error-color">*</span></label>
+                            <div class="form-validate-wrap">
+                                <textarea autocomplete="off" cols="30" id="Message" name="Message" required="required" rows="10"></textarea>
+                                <i class="fa fa-check-circle" aria-hidden="true"></i>
+                            </div>
+                            <button class="button button--block" type="submit">@Umbraco.GetDictionaryValue("Send Message")</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+		</div>
+		
+		@if (backgroundMediaUrl != ""){
+    		<div class="block__background lazyload"
+    		    data-bgset="@(backgroundMediaUrl)?upscale=false&width=1280 1280w,
+        		@(backgroundMediaUrl)?upscale=false&width=1600 1600w,
+        		@(backgroundMediaUrl)?upscale=false&width=1920 1920w"
+        		data-sizes="auto">
+    		</div>
+    	}
+	</section>
+}
+else
+{
+	<section class="block form gray-bg">
+		<div class="container container--small">
+			<h6 class="error-color text-center">You need to set an Contact Form Email in settings to use the contact form widget.</h6>
+		</div>
+	</section>
+}

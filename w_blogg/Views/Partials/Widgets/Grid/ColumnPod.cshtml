@@ -1,0 +1,69 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.ColumnPod>
+@using ContentModels = Umbraco.Web.PublishedModels;
+
+<div class="grid-item grid-item--pod pod @(Model.BoxedColumn ? "grid-item--boxed" : "") @(Model.CenterContent ? "text-center" : "" ) @(Model.PodMediaLeft ? "pod--compact" : "")">
+    <article>
+        @if (Model.Icon != null || Model.Image != null)
+        {
+            <div class="pod__image">
+                @if (Model.Link != null)
+                {
+                    <a href="@Model.Link.Url" target="@Model.Link.Target" title="@Model.Heading">
+                        @if (Model.Icon != null)
+                        {
+                            <i class="fa @(Model.Icon)" aria-hidden="true"></i>
+                        }
+                        else
+                        {
+                            <img class="lazyload"
+                                 src="@(Model.Image.Url)?width=10"
+                                 data-sizes="auto"
+                                 data-srcset="@(Model.Image.Url)?upscale=false&width=300 300w,
+                        	    @(Model.Image.Url)?upscale=false&width=500 500w,
+                        	    @(Model.Image.Url)?upscale=false&width=750 750w,
+                        	    @(Model.Image.Url)?upscale=false&width=1000 1000w"
+                                 alt="@Model.Heading">
+                        }
+                    </a>
+                }
+                else
+                {
+                    if (Model.Icon != null)
+                    {
+                        <i class="fa @(Model.Icon)" aria-hidden="true"></i>
+                    }
+                    else
+                    {
+                        <img class="lazyload"
+                             src="@(Model.Image.Url)?width=10"
+                             data-sizes="auto"
+                             data-srcset="@(Model.Image.Url)?upscale=false&width=300 300w,
+                    	    @(Model.Image.Url)?upscale=false&width=500 500w,
+                    	    @(Model.Image.Url)?upscale=false&width=750 750w,
+                    	    @(Model.Image.Url)?upscale=false&width=1000 1000w"
+                             alt="@Model.Heading">
+                    }
+                }
+            </div>
+        }
+        <div class="pod__text">
+            @if (Model.Link != null)
+            {
+                <h3 class="h5"><a href="@Model.Link.Url" target="@Model.Link.Target" title="@Model.Heading">@Model.Heading</a></h3>
+            }
+            else
+            {
+                <h3 class="h5">@Model.Heading</h3>
+            }
+            @Html.Raw(Model.Text)
+
+            @if(Model.Buttons != null && Model.Buttons.Any()){
+                <div class="button-wrap">
+                    @foreach(var button in Model.Buttons){
+                        @Html.Partial("~/Views/Partials/Widgets/RenderButton.cshtml", button)
+                    }
+                </div>
+            }
+        </div>
+    </article>
+</div>

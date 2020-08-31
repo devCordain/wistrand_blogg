@@ -1,0 +1,45 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.ColumnImage>
+@using ContentModels = Umbraco.Web.PublishedModels;
+@{
+    var imageUrl = Model.Image != null ? Model.Image.Url : "";
+}
+
+<div class="grid-item grid-item--image">
+    <figure>
+        @if (Model.Link != null)
+        {
+            <a href="@(Model.Link.Url)" target="@(Model.Link.Target)">
+                <img class="lazyload"
+                     src="@(imageUrl)?width=10"
+                     data-sizes="auto"
+                     data-srcset="@(imageUrl)?upscale=false&width=300 300w,
+            	    @(imageUrl)?upscale=false&width=500 500w,
+            	    @(imageUrl)?upscale=false&width=750 750w,
+            	    @(imageUrl)?upscale=false&width=1000 1000w,
+            	    @(imageUrl)?upscale=false&width=1200 1200w,
+            	    @(imageUrl)?upscale=false&width=1600 1600w,
+            	    @(imageUrl)?upscale=false&width=1920 1920w"
+                     alt="@Model.ImageCaption">
+            </a>
+        }
+        else
+        {
+            <img class="lazyload"
+                 src="@(imageUrl)?width=10"
+                 data-sizes="auto"
+                 data-srcset="@(imageUrl)?upscale=false&width=300 300w,
+        	    @(imageUrl)?upscale=false&width=500 500w,
+        	    @(imageUrl)?upscale=false&width=750 750w,
+        	    @(imageUrl)?upscale=false&width=1000 1000w,
+        	    @(imageUrl)?upscale=false&width=1200 1200w,
+        	    @(imageUrl)?upscale=false&width=1600 1600w,
+        	    @(imageUrl)?upscale=false&width=1920 1920w"
+                 alt="@Model.ImageCaption">
+        }
+
+        @if (Model.ImageCaption != "")
+        {
+            <figcaption>@Model.ImageCaption</figcaption>
+        }
+    </figure>
+</div>

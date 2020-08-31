@@ -1,0 +1,9 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.ColumnUmbracoForm>
+@using ContentModels = Umbraco.Web.PublishedModels;
+
+<div class="grid-item grid-item--form @(Model.BoxedColumn ? "grid-item--boxed" : "")">
+    @if (Model.Form != null)
+    {
+        @Umbraco.RenderMacro("renderUmbracoForm", new { FormGuid = Model.Form, FormTheme = "igloo", ExcludeScripts="0" })
+    }
+</div>

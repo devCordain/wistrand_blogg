@@ -1,0 +1,33 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.FooterLogos>
+@using ContentModels = Umbraco.Web.PublishedModels;
+
+<div class="footer-item footer-item--logos text-@(Model.AlignContent)">
+
+    @if (Model.Heading != "")
+    {
+        <h2 class="h6">@Model.Heading</h2>
+    }
+
+    @if (Model.Logos != null && Model.Logos.Any())
+    {
+        <ul>
+            @foreach (ContentModels.Logo logo in Model.Logos)
+            {
+                if (logo.LogoImage != null)
+                { 
+                    <li style="width: @(logo.CustomWidth == "" ? "120px" : logo.CustomWidth)">
+                        @if(logo.Link != null)
+                        {
+                            <a href="@(logo.Link.Url)" target="@(logo.Link.Target)" title="@(logo.Link.Name)"><img src="@logo.LogoImage.Url" alt=""></a>
+                        }
+                        else
+                        {
+                            <div><img src="@logo.LogoImage.Url" alt=""></div>
+                        }
+                    </li>
+                }
+            }
+        </ul>
+    }
+
+</div>

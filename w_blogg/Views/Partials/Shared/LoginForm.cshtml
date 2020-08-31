@@ -1,0 +1,31 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<LoginModel>
+@using System.Web.Mvc.Html
+@using ClientDependency.Core.Mvc
+@using Umbraco.Web
+@using Umbraco.Web.Models
+@using Umbraco.Web.Controllers
+@using Igloo.Web.Controllers
+@{
+    LoginModel loginModel = Model;
+    //Html.EnableClientValidation();
+    //Html.EnableUnobtrusiveJavaScript();
+}
+
+@using (Html.BeginUmbracoForm<IglooMemberController>("MemberLogin"))
+{
+    @Html.HiddenFor(m => loginModel.RedirectUrl)
+    
+    @Html.ValidationSummary("loginModel", true)
+
+    @Html.AntiForgeryToken()
+
+    @Html.LabelFor(m => loginModel.Username, Umbraco.GetDictionaryValue("Username"))
+    @Html.TextBoxFor(m => loginModel.Username, new { autofocus = "true" })
+    @Html.ValidationMessageFor(m => loginModel.Username)
+    
+    @Html.LabelFor(m => loginModel.Password, Umbraco.GetDictionaryValue("Password"))
+    @Html.PasswordFor(m => loginModel.Password)
+    @Html.ValidationMessageFor(m => loginModel.Password)
+
+    <button class="button button--block">@Umbraco.GetDictionaryValue("Login")</button>
+}

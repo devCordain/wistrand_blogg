@@ -1,0 +1,34 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.ColumnHeader>
+@using ContentModels = Umbraco.Web.PublishedModels;
+@{
+    var order = (int)ViewData["order"];
+    var centerClass = Model.CenterContent ? "text-center" : "";
+}
+<div class="grid-item grid-item--header @(centerClass)">
+    @if (Model.PreHeading != "")
+    {
+        <h6 class="pre-head">@Model.PreHeading</h6>
+    }
+    @if (Model.Heading != "")
+    {
+        if (order == 0)
+        {
+            <h1>@Model.Heading</h1>
+        }
+        else
+        {
+            <h2>@Model.Heading</h2>
+        }
+    }
+    @if (Model.Text.ToString() != "")
+    {
+        @Model.Text
+    }
+    @if(Model.Buttons != null && Model.Buttons.Any()){
+        <div class="button-wrap">
+            @foreach(var button in Model.Buttons){
+                @Html.Partial("~/Views/Partials/Widgets/RenderButton.cshtml", button)
+            }
+        </div>
+    }
+</div>

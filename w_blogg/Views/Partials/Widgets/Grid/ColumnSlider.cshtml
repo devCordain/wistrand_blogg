@@ -1,0 +1,57 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.ColumnSlider>
+@using ContentModels = Umbraco.Web.PublishedModels;
+
+<div class="grid-item grid-item--slider">
+    <div class="slider js-flickity" 
+    	data-flickity-options='
+    		{ 
+    			"cellAlign": "left", 
+    			"contain": 1, 
+    			"prevNextButtons": @(Model.ShowNextPrevArrows ? "1" : "0"), 
+    			"pageDots": @(Model.ShowPageDots ? "1" : "0"), 
+    			"setGallerySize": 1, 
+    			"imagesLoaded": 1, 
+    			"wrapAround": @(Model.WrapAround ? "1" : "0"),
+    			"autoPlay": @(Model.Autoplay),
+    			"pauseAutoPlayOnHover": @(Model.PauseAutoplayOnHover ? "1" : "0"),
+    			"adaptiveHeight": 1,
+    			"fade": @(Model.FadeAnimation ? "1" : "0")
+    		}
+    	'>
+    
+        @if (Model.Columns != null)
+        {
+            
+            foreach (var column in Model.Columns)
+            {   
+                var columnWidth = column.Value<string>("columnWidth")?.Replace("%", "") ?? "100";
+                var columnType = column.ContentType.Alias;
+    
+                if (columnWidth == "25")
+                {
+                    columnWidth = "25 col-m-50";
+                }
+                else if (columnWidth == "20")
+                {
+                    columnWidth = "20 col-m-33";
+                }
+                else if(columnWidth == "10"){
+                    columnWidth = "10 col-m-20";
+                }
+                
+                <div class="row row--flat" style="width:100%">
+    
+                    <div class="col-@(columnWidth) col-s-100">
+                        @if (columnType == "lineBreak"){
+                            @Html.Partial("~/Views/Partials/Shared/LineBreak.cshtml", column)
+                        } else {
+                            @Html.Partial("~/Views/Partials/Widgets/Grid/"+columnType+".cshtml", column, new ViewDataDictionary { { "containerWidth", "standard" }, {"order", 2} })
+                        }
+                    </div>
+                
+                </div>
+            }
+            
+        }
+    </div>
+</div>

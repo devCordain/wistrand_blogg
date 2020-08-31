@@ -1,0 +1,136 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.Register>
+@using ContentModels = Umbraco.Web.PublishedModels;
+@using System.Web.Mvc.Html
+@using ClientDependency.Core.Mvc
+@using Umbraco.Web
+@using Umbraco.Web.Controllers
+@using Igloo.Web.Controllers;
+@{
+
+    var order = (int)ViewData["order"];
+    var registerModel = new MemberRegisterModel();
+
+    registerModel.MemberTypeAlias = Services.MemberService.GetDefaultMemberType();
+
+    @*
+        Configurable here:
+
+        registerModel.RedirectUrl       - Optional. What path to redirect to if registration is successful.
+                                          By default the member will be redirected to the current umbraco page
+                                          unless this is specified.
+
+        registerModel.UsernameIsEmail   - the default is true
+                                          if you want the username to be different from the email
+                                          address, set this to true and add a new Username field in
+                                          the form below
+
+                                          @Html.LabelFor(m => registerModel.Username)
+                                          @Html.TextBoxFor(m => registerModel.Username)
+                                          @Html.ValidationMessageFor(m => registerModel.Username)
+    *@
+
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript();
+ 
+   
+    var success = TempData["FormSuccess"] != null;
+    
+    var textColorClass = Model.TextColor?.ToString() == "white" ? "light-color" : ""; 
+    var backgroundColor = Model.BackgroundColor?.ToString();
+    var backgroundColorClass = string.IsNullOrWhiteSpace(backgroundColor) ? "white-bg" : backgroundColor + "-bg";
+}
+
+<section class="account-form">
+    <div class="account-form__inner @backgroundColorClass @textColorClass">
+        <div class="account-form__content">
+        
+            @if (success)
+            {
+                @* This message will show if RedirectOnSucces is set to false (default) *@
+                <div class="text-center">
+					<svg class="checkmark-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"></circle><path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"></path></svg>
+					<h4 class="success-color">@Model.SuccessMessageHeading</h4>
+					@Model.SuccessMessageText
+				</div>
+            }
+            else
+            {
+                if (Model.Heading != "")
+                {
+                    if (order == 0)
+                    {
+                        <h1 class="h2">@Model.Heading</h1>
+                    }
+                    else
+                    {
+                        <h2>@Model.Heading</h2>
+                    }
+                }
+                @Model.Text
+                
+                @Html.Raw(ViewData["errors"])
+            
+                using (Html.BeginUmbracoForm<IglooMemberController>("Register"))
+                {
+                
+                    @Html.AntiForgeryToken()
+
+                    @Html.LabelFor(m => registerModel.Name, Umbraco.GetDictionaryValue("Name"))
+                    @Html.TextBoxFor(m => registerModel.Name)
+                    @Html.ValidationMessageFor(m => registerModel.Name)
+                   
+                    @Html.LabelFor(m => registerModel.Email, Umbraco.GetDictionaryValue("Email"))
+                    @Html.TextBoxFor(m => registerModel.Email)
+                    @Html.ValidationMessageFor(m => registerModel.Email)
+                   
+                    if (registerModel.MemberProperties != null)
+                    {
+                        @*
+                            It will only displays properties marked as "Member can edit" on the "Info" tab of the Member Type.
+                        *@
+                        for (var i = 0; i < registerModel.MemberProperties.Count; i++)
+                        {
+                            @Html.LabelFor(m => registerModel.MemberProperties[i].Value, registerModel.MemberProperties[i].Name)
+                            @*
+                                By default this will render a textbox but if you want to change the editor template for this property you can
+                                easily change it. For example, if you wanted to render a custom editor for this field called "MyEditor" you would
+                                create a file at ~/Views/Shared/EditorTemplates/MyEditor.cshtml", then you will change the next line of code to
+                                render your specific editor template like:
+                                @Html.EditorFor(m => profileModel.MemberProperties[i].Value, "MyEditor")
+                            *@
+                            @Html.EditorFor(m => registerModel.MemberProperties[i].Value)
+                            @Html.HiddenFor(m => registerModel.MemberProperties[i].Alias)
+                            
+                        }
+                    }
+                    
+                    @Html.LabelFor(m => registerModel.Password, Umbraco.GetDictionaryValue("Password"))
+                    @Html.PasswordFor(m => registerModel.Password)
+                    @Html.ValidationMessageFor(m => registerModel.Password)
+                    
+        
+                    @Html.HiddenFor(m => registerModel.MemberTypeAlias)
+                    @Html.HiddenFor(m => registerModel.RedirectUrl)
+                    @Html.HiddenFor(m => registerModel.UsernameIsEmail)
+        
+                    <button class="button button--block">@Umbraco.GetDictionaryValue("Register")</button>
+                    
+                }
+            }
+          
+        </div>
+    </div>
+    
+    @if(Model.Image != null){
+        <div class="account-form__media lazyload hide--m"
+             data-bgset="@(Model.Image.Url)?upscale=false&width=1280 1280w,
+    		@(Model.Image.Url)?upscale=false&width=1600 1600w,
+    		@(Model.Image.Url)?upscale=false&width=1920 1920w"
+             data-sizes="auto">
+        </div>
+    }
+    
+</section>
+
+
+

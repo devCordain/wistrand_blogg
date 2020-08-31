@@ -1,0 +1,10 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.TextSidebar>
+@using ContentModels = Umbraco.Web.PublishedModels;
+
+<div class="block-text__aside-item block-text__aside-item--text @(Model.Boxed ? "block-text__aside-item--boxed" : "")">
+    @if (Model.Heading != "")
+    {
+        <h6>@Model.Heading</h6>
+    }
+    @Model.Text
+</div>

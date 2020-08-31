@@ -1,0 +1,51 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.Slider>
+@using ContentModels = Umbraco.Web.PublishedModels;
+@using Igloo.Models
+@using Igloo.Extensions
+@using Igloo.Helpers
+@{
+	var order = (int)ViewData["order"];
+}
+
+<section class="slider js-flickity" 
+	data-flickity-options='
+		{ 
+			"cellAlign": "left", 
+			"contain": 1, 
+			"prevNextButtons": @(Model.ShowNextPrevArrows ? "1" : "0"), 
+			"pageDots": @(Model.ShowPageDots ? "1" : "0"), 
+			"setGallerySize": 1, 
+			"imagesLoaded": 1, 
+			"wrapAround": @(Model.WrapAround ? "1" : "0"),
+			"autoPlay": @(Model.Autoplay),
+			"pauseAutoPlayOnHover": @(Model.PauseAutoplayOnHover ? "1" : "0"),
+			"adaptiveHeight": 1,
+			"fade": @(Model.FadeAnimation ? "1" : "0")
+		}
+	'>
+
+    @if (Model.Widgets != null)
+    {
+        var index = 0;
+        
+        foreach (var widget in Model.Widgets)
+        {   
+            if(order == 0 && index == 0)
+            {
+                <div class="slide">@RenderSlide(widget, 0)</div>
+            }
+            else
+            {
+                <div class="slide">@RenderSlide(widget, 1)</div>
+            }
+            index++;
+        }
+    }
+</section>
+
+@helper RenderSlide(IPublishedElement widget, int order)
+{
+    var widgetPartialViewResolver = new PartialViewResolver();
+    var partialView = widgetPartialViewResolver.GetWidgetPartialViewRoute(widget.ContentType.Alias);
+    @Html.Partial(partialView, widget, new ViewDataDictionary { { "order", order } });
+}

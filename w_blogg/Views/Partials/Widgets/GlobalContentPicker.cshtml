@@ -1,0 +1,30 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.GlobalContentPicker>
+@using ContentModels = Umbraco.Web.PublishedModels;
+@using Igloo.Helpers
+
+@{
+    Layout = null;
+    var globalContents = Model.GlobalContent;
+}
+@if (globalContents != null && globalContents.Any())
+{
+    foreach (var globalContent in globalContents)
+    {
+        var widgets = globalContent.Value<IEnumerable<IPublishedElement>>("widgets");
+        
+        if (widgets != null && widgets.Any())
+        {
+            foreach (var widget in widgets)
+            {
+                @RenderWidget(widget, 1)
+            }
+        }
+    }
+}
+
+@helper RenderWidget(IPublishedElement widget, int order)
+{
+    var widgetPartialViewResolver = new PartialViewResolver();
+    var partialView = widgetPartialViewResolver.GetWidgetPartialViewRoute(widget.ContentType.Alias);
+    @Html.Partial(partialView, widget, new ViewDataDictionary { { "order", order } });
+}

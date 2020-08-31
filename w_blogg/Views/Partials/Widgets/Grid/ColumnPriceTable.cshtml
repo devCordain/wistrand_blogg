@@ -1,0 +1,46 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.ColumnPriceTable>
+@using ContentModels = Umbraco.Web.PublishedModels;
+
+<div class="grid-item @(Model.BoxedColumn ? "grid-item--boxed" : "") grid-item--price-table">
+
+	<div class="price-table @(Model.CenterContent ? "text-center" : "")">
+	
+	    @if(Model.Image != null){
+	        <div class="price-table__image">
+	            <img src="@Model.Image.Url" alt="">
+	        </div>
+	    }
+        
+        @if(Model.PriceTableName != ""){
+		    <h4 class="price-table__heading">@Model.PriceTableName</h4>
+        }
+		<div class="price-table__price">@Model.Price<span> @Model.PriceUnit</span></div>
+
+
+        @if(Model.Features != null && Model.Features.Any()){
+    		<div class="price-table__features">
+    			<ul>
+    			    @foreach(var feature in Model.Features){
+    				    <li><i class="fa fa-check" aria-hidden="true"></i> @feature</li>
+    				}
+    			</ul>
+    		</div>
+		}
+
+		@if(Model.Buttons != null && Model.Buttons.Any()){
+            <div class="button-wrap">
+                @foreach(var button in Model.Buttons){
+                    @Html.Partial("~/Views/Partials/Widgets/RenderButton.cshtml", button)
+                }
+            </div>
+        }
+        
+        @if(Model.Disclaimer != ""){
+    		<div class="price-table__disclaimer">
+    			@Model.Disclaimer
+    		</div>
+		}
+
+	</div>
+
+</div>

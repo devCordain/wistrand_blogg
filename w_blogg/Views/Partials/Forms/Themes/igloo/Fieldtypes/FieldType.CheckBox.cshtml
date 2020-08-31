@@ -1,0 +1,18 @@
+﻿@model Umbraco.Forms.Mvc.Models.FieldViewModel
+
+<label class="cb-wrap">&nbsp;
+
+    <input type="checkbox" name="@Model.Name" id="@Model.Id" value="true" 
+           @if(Model.Mandatory){<text>  data-val="true" data-val-requiredcb="@Model.RequiredErrorMessage"</text>}
+           @if (Model.ContainsValue(true) || Model.ContainsValue("true") || Model.ContainsValue("on"))
+           {<text>checked="checked"</text>}       
+                                                                                                                                                                     
+    />
+    
+    <span class="checkmark"></span>
+    
+    <input type="hidden" name="@Model.Name" value="false" />
+
+</label>
+
+

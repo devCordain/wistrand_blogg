@@ -1,0 +1,19 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.ColumnQuote>
+@using ContentModels = Umbraco.Web.PublishedModels;
+<div class="grid-item grid-item--quote @(Model.BoxedColumn ? "grid-item--boxed" : "")">
+    <blockquote>
+        @Model.Quote
+        <footer>
+            @if (Model.AuthorImage != null)
+            {
+                <img src="@(Model.AuthorImage.GetCropUrl(100,100))" alt="@Model.Author">
+            }
+            <div>
+                @Model.Author
+                <div>
+                    @Model.AuthorTitle
+                </div>
+            </div>
+        </footer>
+    </blockquote>
+</div>

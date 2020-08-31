@@ -1,0 +1,13 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.ColumnButton>
+@using ContentModels = Umbraco.Web.PublishedModels;
+@using Igloo.Extensions
+
+<div class="grid-item grid-item--button text-@(Model.AlignContent)">
+    @if(Model.Buttons != null && Model.Buttons.Any()){
+        <div class="button-wrap">
+            @foreach(var button in Model.Buttons){
+                @Html.Partial("~/Views/Partials/Widgets/RenderButton.cshtml", button)
+            }
+        </div>
+    }
+</div>

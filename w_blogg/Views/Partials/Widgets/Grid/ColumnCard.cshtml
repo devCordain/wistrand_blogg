@@ -1,0 +1,86 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.ColumnCard>
+@using ContentModels = Umbraco.Web.PublishedModels;
+@using Igloo.Extensions
+@{
+    var containerWidth = (string)ViewData["containerWidth"];
+    var cardColorClass = Model.TextColor?.ToString() == "white" ? "light-color" : "dark-color"; 
+    var height = string.IsNullOrWhiteSpace(Model.Height) ? "25" : Model.Height.Replace("%", "");
+    
+    var themeContainerWidth = (Umbraco.AssignedContentItem.SettingsValue("containerWidth", "1300") != "" ? Umbraco.AssignedContentItem.SettingsValue("containerWidth", "1300") : "1300").Replace("px", "");
+    var themeContainerWidthSmall = (Umbraco.AssignedContentItem.SettingsValue("containerWidthSmall", "850") != "" ? Umbraco.AssignedContentItem.SettingsValue("containerWidthSmall", "850") : "850").Replace("px", "");
+    var themeContainerWidthBig = (Umbraco.AssignedContentItem.SettingsValue("containerWidthBig", "1600") != "" ? Umbraco.AssignedContentItem.SettingsValue("containerWidthBig", "1600") : "1600").Replace("px", "");    
+
+    @*Calculate crop*@
+    double targetWidth = int.Parse(themeContainerWidth);
+    double targetHeight = 1080;
+    double cWidth = int.Parse(Model.ColumnWidth.Replace("%", ""));
+    double cHeight = int.Parse(height);
+    if (containerWidth == "small")
+    {
+        targetWidth = int.Parse(themeContainerWidthSmall);
+    }
+    else if (containerWidth == "big")
+    {
+        targetWidth = int.Parse(themeContainerWidthBig);
+    }
+    else if (containerWidth == "full width")
+    {
+        targetWidth = 1920;
+    }
+    
+    targetWidth = targetWidth * (cWidth / 100);
+    targetHeight = targetHeight * (cHeight / 100);
+    
+    var backgroundUrl = Model.Background != null ? Model.Background.Url : "";
+    
+    if (targetWidth > targetHeight)
+    {
+        backgroundUrl = backgroundUrl + "?width=" + Convert.ToInt32(targetWidth) + "px";
+    }
+    else
+    {
+        backgroundUrl = backgroundUrl + "?height=" + Convert.ToInt32(targetHeight) + "px";
+    }
+}
+<div class="grid-item grid-item--card card card--@(height) @(cardColorClass) ">
+
+    @if (Model.Link != null)
+    {
+        <a href="@(Model.Link.Url)" target="@(Model.Link.Target)" class="card__text card__text--@(Model.TextSize) v-align-@(Model.VerticalTextAlignment) text-@(Model.HorizontalTextAlignment)">
+
+            <span class="card__text-inner">
+                <span class="card__header act-heading">@Model.Heading</span>
+                <span>@Model.Text</span>
+            </span>
+
+        </a>
+    }
+    else
+    {
+        <span class="card__text card__text--@(Model.TextSize) v-align-@(Model.VerticalTextAlignment) text-@(Model.HorizontalTextAlignment)">
+
+            <span class="card__text-inner">
+                <span class="card__header act-heading">@Model.Heading</span>
+                <span>@Model.Text</span>
+
+                @if (Model.Buttons != null && Model.Buttons.Any())
+                {
+                    <span class="card__button">
+                        @foreach(var button in Model.Buttons){
+                            @Html.Partial("~/Views/Partials/Widgets/RenderButton.cshtml", button)
+                        }
+                    </span>
+                }
+            </span>
+
+        </span>
+
+    }
+
+    <div class="card__bg lazyload" data-bgset="@(backgroundUrl)"></div>
+    
+    @if(!string.IsNullOrWhiteSpace(Model.OverlayStrength)){
+        <div class="card__overlay" style="opacity:0.@(Model.OverlayStrength.Replace("%", ""))"></div>
+    }
+
+</div>

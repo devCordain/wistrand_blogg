@@ -1,0 +1,11 @@
+﻿@using Umbraco.Web.Models
+@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.Button>
+@using ContentModels = Umbraco.Web.PublishedModels;
+@{
+	var borderClass = Model.BorderButton ? "button--border" : "";
+	var buttonColor = Model.ButtonColor?.ToString();
+    var buttonClass = string.IsNullOrWhiteSpace(buttonColor) ? "button--theme" : "button--" + buttonColor;
+}
+@if(Model.ButtonLink != null){
+	<a href="@(Model.ButtonLink.Url)" target="@(Model.ButtonLink.Target)" @if(Model.ButtonLink.Target == "_blank"){ <text>rel="noopener"</text> } title="@(Model.ButtonLink.Name)" class="button button--@(Model.ButtonSize) @(borderClass) @(buttonClass)">@(Model.ButtonText)</a>
+}

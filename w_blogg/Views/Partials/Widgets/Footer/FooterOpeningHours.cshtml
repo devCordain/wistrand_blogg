@@ -1,0 +1,27 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.FooterOpeningHours>
+@using ContentModels = Umbraco.Web.PublishedModels;
+@{
+    var openingHours = Model.OpeningHours;
+}
+
+<div class="footer-item footer-item--open text-@(Model.AlignContent)">
+
+    @if (Model.Heading != "")
+    {
+        <h2 class="h6">@Model.Heading</h2>
+    }
+    @if(openingHours != null && openingHours.Any()){
+		<ul class="opening-hours">
+			@foreach (ContentModels.OpeningHour openingHour in openingHours){
+				<li>
+					<span class="time">@openingHour.Time</span>
+					<span class="day">@openingHour.Day</span>
+				</li>
+			}
+		</ul>
+	}
+</div>
+
+
+
+

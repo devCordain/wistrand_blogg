@@ -1,0 +1,78 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.Newsletter>
+@using ContentModels = Umbraco.Web.PublishedModels;
+@using Igloo.Extensions
+@using Igloo.Controllers
+@{
+	var buttonColor = Model.ButtonColor?.ToString();
+    var buttonClass = string.IsNullOrWhiteSpace(buttonColor) ? "button--theme" : "button--" + buttonColor;
+	
+	var newsletterEmailMarketingProvider = Umbraco.AssignedContentItem.SettingsValue("newsletterEmailMarketingProvider", "");
+	var newsletterDefaultSubscriberListID = Umbraco.AssignedContentItem.SettingsValue("newsletterDefaultSubscriberListID", "");
+	var animateClass = Model.Animate ? "animate" : "";
+	var thankYouMessage = Umbraco.GetDictionaryValue("Thank you");
+	var emailLabel = Umbraco.GetDictionaryValue("Email");
+	
+	if(Model.ListID != ""){
+		newsletterDefaultSubscriberListID = Model.ListID;
+	}
+	
+	var pageID = Umbraco.AssignedContentItem.Id;
+	
+    var textColorClass = Model.TextColor?.ToString() == "white" ? "light-color" : ""; 
+    var backgroundColor = Model.BackgroundColor?.ToString();
+    var backgroundColorClass = string.IsNullOrWhiteSpace(backgroundColor) ? "gray-bg" : backgroundColor + "-bg";
+	
+	var backgroundMediaUrl = Model.BackgroundImage != null ? Model.BackgroundImage.Url : "";
+	
+    if (backgroundMediaUrl != "")
+    {
+        backgroundColorClass = "";
+	}
+}
+	
+<section class="block newsletter @(backgroundColorClass) @(textColorClass) @(animateClass)">	
+    <div class="newsletter__inner">
+        @if (Model.Heading != "")
+        {
+            <h2 class="h3">@Model.Heading</h2>
+        }
+
+        @Model.Text
+
+        @if (newsletterEmailMarketingProvider == "MailChimp")
+        {
+            <form action="@(Url.GetUmbracoApiService<IglooNewsletterController>("AddMailchimpMember"))" data-thankyoumessage="@thankYouMessage">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="ListID" value="@(newsletterDefaultSubscriberListID)" />
+                <input type="hidden" name="PageID" value="@(pageID)" />
+                <label for="newsletter-email" class="sr-only">@emailLabel</label>
+                <input type="email" name="Email" id="newsletter-email" required placeholder="@Model.PlaceholderText">
+                <button class="button button--block @(buttonClass)" aria-label="Sign up for newsletter"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+            </form>
+        } else if(newsletterEmailMarketingProvider == "Campaign Monitor"){
+            <form action="@(Url.GetUmbracoApiService<IglooNewsletterController>("AddCampaignMonitorMember"))" data-thankyoumessage="@thankYouMessage">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="ListID" value="@(newsletterDefaultSubscriberListID)" />
+                <input type="hidden" name="PageID" value="@(pageID)" />
+                <label for="newsletter-email" class="sr-only">@emailLabel</label>
+                <input type="email" name="Email" id="newsletter-email" required placeholder="@Model.PlaceholderText">
+                <button class="button button--block @(buttonClass)" aria-label="Sign up for newsletter"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+            </form>
+        }
+        @if (Model.SmallText != "")
+        {
+                <p class="newsletter__disclaimer">
+                    @Model.SmallText
+                </p>
+         }
+    </div>
+	
+	@if (backgroundMediaUrl != ""){
+		<div class="block__background lazyload"
+		    data-bgset="@(backgroundMediaUrl)?upscale=false&width=1280 1280w,
+    		@(backgroundMediaUrl)?upscale=false&width=1600 1600w,
+    		@(backgroundMediaUrl)?upscale=false&width=1920 1920w"
+    		data-sizes="auto">
+		</div>
+	}
+</section>

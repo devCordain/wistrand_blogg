@@ -1,0 +1,76 @@
+﻿@using Igloo.Extensions
+@using Umbraco.Web.PublishedModels
+@inherits UmbracoViewPage
+@{
+    var site = Model.Root();
+    var headerLogoOnLight = Model.SettingsValue<IPublishedContent>("headerLogoOnLight", null)?.Url;
+    var headerLogoOnDark = Model.SettingsValue<IPublishedContent>("headerLogoOnDark", null)?.Url;
+    var headerTheme = Model.SettingsValue("headerBackgroundColor", "") == "white" ? "top--light" : "top--dark";
+    
+    var siteName = Model.SettingsValue("siteName", "");
+    var companyName = Model.SettingsValue("companyName", "");
+    var headerLayout = Model.SettingsValue("headerLayout", "");
+    var searchPage = site.FirstChild<Search>();
+
+    var transparentHeader = Model.Value<bool>("transparentHeader");
+    var scrollClass = "";
+    
+    if(transparentHeader){
+        var transparentHeaderColor = Model.Value<string>("transparentHeaderColor")?.ToString();    
+        scrollClass = transparentHeaderColor == "white" ? "top--scroll-bg top--scroll-light" : "top--scroll-bg top--scroll-dark";
+    }
+    
+    var containerWidth = Model.SettingsValue("headerContainerWidth", "");
+    var containerWidthClass = "";
+    switch(containerWidth)
+    {
+        case "small":
+            containerWidthClass = "top--small-width";
+            break;
+        case "standard":
+            containerWidthClass = "top--standard-width";
+            break;
+        case "big":
+            containerWidthClass = "top--big-width";
+            break;
+        case "full width":
+            containerWidthClass = "top--full-width";
+            break;
+    }
+}
+<header class="top @(headerTheme) @(containerWidthClass) @(scrollClass) top--@(headerLayout)">
+	<div class="top-inner">
+	    
+	    <div class="top__left">
+    		<a href="@site.Url" class="logo logo--on-light" title="@siteName">
+    			<img src="@(headerLogoOnLight)" alt="@companyName">
+    		</a>
+    		<a href="@site.Url" class="logo logo--on-dark" title="@siteName">
+    			<img src="@(headerLogoOnDark)" alt="@companyName">
+    		</a>
+		</div>
+
+		@Html.Partial("~/Views/Partials/Shared/Navigation.cshtml")
+		
+		<nav class="mobile-actions">
+			<ul>
+			    @if(searchPage != null){
+    				<li class="toggle-search">
+    				    <a href="#" title="@Umbraco.GetDictionaryValue("Search")">
+    				        <i class="fa fa-search" aria-hidden="true"></i>
+    				    </a>
+    				</li>
+				}
+				<li>
+				    <button class="hamburger" type="button" aria-label="Show navigation">
+            		  <span class="hamburger-box">
+            		    <span class="hamburger-inner"></span>
+            		  </span>
+            		</button>
+				</li>
+			</ul>
+		</nav>
+		
+		
+	</div>
+</header>

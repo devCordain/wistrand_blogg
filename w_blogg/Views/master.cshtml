@@ -1,0 +1,148 @@
+﻿@inherits UmbracoViewPage
+@using ContentModels = Umbraco.Web.PublishedModels;
+@using ClientDependency.Core.Mvc
+@using Igloo.Extensions
+@{
+    Layout = null;
+
+    Html.RequiresCss("~/css/lib/reset.css", 1);
+    Html.RequiresCss("~/css/lib/font-awesome.css", 2);
+    Html.RequiresCss("~/css/lib/photoswipe.css", 3);
+    Html.RequiresCss("~/css/ig-base.css", 4);
+    Html.RequiresCss("~/css/ig-header.css", 5);
+    Html.RequiresCss("~/css/ig-footer.css", 6);
+    Html.RequiresCss("~/css/ig-widgets.css", 7);
+    Html.RequiresCss("~/css/custom.css", 8);
+
+    Html.RequiresJs("~/scripts/lib/jquery-3.4.1.min.js", 0);
+    Html.RequiresJs("~/scripts/lib/ls.respimg.min.js", 1);
+    Html.RequiresJs("~/scripts/lib/ls.bgset.min.js", 1);
+    Html.RequiresJs("~/scripts/lib/lazysizes.min.js", 1);
+    Html.RequiresJs("~/scripts/lib/fluidvids.js", 2);
+    Html.RequiresJs("~/scripts/lib/photoswipe.min.js", 3);
+    Html.RequiresJs("~/scripts/lib/photoswipe-ui-default.min.js", 4);
+    Html.RequiresJs("~/scripts/lib/instafeed.js", 5);
+    Html.RequiresJs("~/scripts/lib/flickity.pkgd.min.js", 6);
+    Html.RequiresJs("~/scripts/lib/jquery.validate.js", 7);
+    Html.RequiresJs("~/scripts/lib/jquery.validate.unobtrusive.js", 8);
+    Html.RequiresJs("~/scripts/lib/intersection-observer.js", 9);
+    Html.RequiresJs("~/scripts/lib/axios.min.js", 9);
+    Html.RequiresJs("~/scripts/ig-app.js", 10);
+    Html.RequiresJs("~/scripts/custom.js", 11);
+    
+    var site = Model.Root();
+    var googleAnalyticsId = Model.SettingsValue<string>("googleAnalyticsID", "");
+    var googleTagManagerID = Model.SettingsValue<string>("googleTagManagerID", "");
+    var hideHeader = Model.Value<bool>("hideHeader");
+    var hideFooter = Model.Value<bool>("hideFooter");
+    var search = site.FirstChild<ContentModels.Search>();
+    var enableCookieConsentDialog = Model.SettingsValue<bool>("enableCookieConsentDialog", false);
+    var embedFont = Model.SettingsValue<string>("embedFont", "");
+    var lang = System.Threading.Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName;
+    var enableSubHeader = site.Value<bool>("enableSubHeader");
+    var settingsLogoUrl = Model.SettingsMediaUrl("companyLogo");
+    var settingsPhoneNumber = Model.SettingsValue("companyPhoneNumber", "");
+}
+
+<!DOCTYPE html>
+<html lang="@lang">
+<head>
+    @Html.Raw(embedFont)
+    @Html.RenderCssHere()
+    <link href="@Model.GetThemePath()" type="text/css" rel="stylesheet">
+    @Html.Partial("~/Views/Partials/Shared/Meta.cshtml")
+
+    @if (googleTagManagerID != "")
+    {
+        <script>
+            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','@googleTagManagerID');
+        </script>
+    }
+    
+    <script>window.MSInputMethodContext && document.documentMode && document.write('<script src="/scripts/lib/ie11CustomProperties.js"><\x2fscript>');</script>
+</head>
+<body class="page-loading @(enableSubHeader ? "pre-top-visible" : "")" data-siteid="@site.Id" data-culture="@System.Threading.Thread.CurrentThread.CurrentCulture.Name">
+
+    <a href="#content" class="button skip-link">@Umbraco.GetDictionaryValue("Jump to content")</a>
+
+    @if (!hideHeader)
+    {
+        if (enableSubHeader)
+        {
+            @Html.Partial("~/Views/Partials/Shared/SubHeader.cshtml")
+        }
+        @Html.Partial("~/Views/Partials/Shared/Header.cshtml")
+    }
+
+    <main id="content">
+        @RenderBody()
+    </main>
+
+    @if (!hideFooter)
+    {
+        @Html.Partial("~/Views/Partials/Shared/Footer.cshtml", site)
+    }
+
+    @if (search != null)
+    {
+        @Html.Partial("~/Views/Partials/Shared/SearchModal.cshtml")
+    }
+
+    @if (enableCookieConsentDialog)
+    {
+        @Html.Partial("~/Views/Partials/Shared/CookieConsent.cshtml")
+    }
+
+    @Html.Partial("~/Views/Partials/Shared/PhotoSwipe.cshtml")
+
+    @if (googleAnalyticsId != "")
+    {
+        <script>
+        	(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+        	function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+        	e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+        	e.src='https://www.google-analytics.com/analytics.js';
+        	r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+        	ga('create','@googleAnalyticsId','auto');ga('send','pageview');
+        </script>
+    }
+
+    <script type="application/ld+json">
+        {
+        "@@context": "http://schema.org",
+        "@@type": "Organization",
+        "url": "@site.Url(mode: UrlMode.Absolute)"
+        @if (settingsLogoUrl != null)
+        {
+            <text>,"logo": "@settingsLogoUrl"</text>
+        }
+
+        @if (settingsPhoneNumber != "")
+        {
+            <text>,"telephone":"@settingsPhoneNumber"</text>
+        }
+        }
+    </script>
+
+    @Html.RenderJsHere()
+    @RenderSection("bodyEnd", false)
+
+    @if (googleTagManagerID != "")
+    {
+        <noscript>
+            <iframe src="https://www.googletagmanager.com/ns.html?id=@(googleTagManagerID)" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+        </noscript>
+    }
+
+    @if (Model.SettingsValue<bool>("showThemeExplorer", false) || UmbracoContext.InPreviewMode)
+    {
+        @Html.Partial("~/Views/Partials/Shared/ThemeExplorer.cshtml")
+        <link rel="stylesheet" href="~/css/lib/theme-explorer.css">
+        <script src="~/scripts/lib/jscolor.js"></script>
+        <script src="~/scripts/lib/theme-explorer.js"></script>
+    }
+</html>

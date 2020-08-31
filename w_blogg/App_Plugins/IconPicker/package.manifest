@@ -1,0 +1,27 @@
+{
+	propertyEditors: [
+		{
+			alias: 'IconPicker',
+			name: 'IconPicker',
+			valueType: 'STRING',
+			editor: {
+				view: '~/App_Plugins/iconpicker/iconpicker.html',
+				hideLabel: false
+			},
+			prevalues: {
+				fields: [
+					
+				]
+			}
+		}
+	],
+	parameterEditors:[],
+	javascript: [
+		'~/app_plugins/iconpicker/iconpicker.controller.js',
+		'~/app_plugins/iconpicker/dialogs/iconpicker.dialog.controller.js'
+	],
+	css: [
+		'~/app_plugins/iconpicker/iconpicker.css',
+		'~/app_plugins/iconpicker/dialogs/iconpicker.dialog.css'
+	]
+}

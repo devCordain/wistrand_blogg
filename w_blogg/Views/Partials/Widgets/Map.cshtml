@@ -1,0 +1,107 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.Map>
+@using ContentModels = Umbraco.Web.PublishedModels;
+@using Igloo.Extensions
+@{
+    var googleMapsAPIKey = Umbraco.AssignedContentItem.SettingsValue("googleMapsApikey", "");
+
+    var height = Model.Height == null ? "" : Model.Height.Replace("%", "");
+}
+
+@if(!Model.ShowContentNextToMap){
+	<section class="map map--@(height)">	
+	
+		<div class="map__canvas" 
+		    data-lat="@(Model.Latitude)" 
+		    data-long="@(Model.Longitude)" 
+		    data-zoom="@(Model.MapZoom != "" ?  Model.MapZoom : "7")" 
+		    data-pin="@(Model.CustomMapPinIcon != null ? Model.CustomMapPinIcon.Url : "no")">
+		</div>
+		
+	</section>
+}
+else{
+	var order = (int)ViewData["order"];
+	
+	var openingHours = Model.OpeningHours;
+	
+	var textColorClass = Model.TextColor?.ToString() == "white" ? "light-color" : ""; 
+    var backgroundColor = Model.BackgroundColor?.ToString();
+    var backgroundColorClass = string.IsNullOrWhiteSpace(backgroundColor) ? "gray-bg" : backgroundColor + "-bg";
+	
+	<section class="map map--@(height) map--split">
+
+		<div class="map__content @(backgroundColorClass) @(textColorClass)">
+		
+			<div class="map__content-inner">
+
+			    @if(Model.PreHeading != ""){
+					<h6 class="pre-head">@Model.PreHeading</h6>
+				}
+				@if(Model.Heading != ""){
+					if(order == 0){
+						<h1>@Model.Heading</h1>
+					}
+					else{
+						<h2>@Model.Heading</h2>
+					}
+				}
+				@if(Model.Text.ToString() != ""){
+					@Model.Text
+				}
+                
+                <address>
+    				<ul class="contact-list">
+    					@if(Model.Address != ""){
+    						<li>
+    							<i class="fa fa-map-marker" aria-hidden="true"></i>
+    							@Html.Raw(Model.Address.Replace("\n", "<br/>"))
+    						</li>
+    					}
+    					@if(Model.PhoneNumber != ""){
+    						<li>
+    							<a href="tel:@(Model.PhoneNumber)"><i class="fa fa-phone" aria-hidden="true"></i> @Model.PhoneNumber</a>
+    						</li>
+    					}
+    					@if(Model.Email != ""){
+    						<li>
+    							<a href="mailto:@(Model.Email)"><i class="fa fa-envelope" aria-hidden="true"></i> @Model.Email</a>
+    						</li>
+    					}						
+    				</ul>
+				</address>
+				
+				@if(openingHours != null){
+					<ul class="opening-hours">
+						@foreach (Umbraco.Web.PublishedModels.OpeningHour openingHour in openingHours){
+							<li>
+								<span class="time">@openingHour.Time</span>
+								<span class="day">@openingHour.Day</span>
+							</li>
+						}
+					</ul>
+				}
+
+				@if(Model.Buttons != null){
+                    <div class="button-wrap">
+                        @foreach(var button in Model.Buttons){
+                            @Html.Partial("~/Views/Partials/Widgets/RenderButton.cshtml", button)
+                        }
+                    </div>
+                }
+
+			</div>
+			
+		</div>
+		
+		<div class="map__canvas" 
+		    data-lat="@(Model.Latitude)" 
+		    data-long="@(Model.Longitude)" 
+		    data-zoom="@(Model.MapZoom)" 
+		    data-pin="@(Model.CustomMapPinIcon != null ? Model.CustomMapPinIcon.Url : "no")">
+		</div>
+
+	</section>
+}
+<script src="//maps.googleapis.com/maps/api/js?key=@(googleMapsAPIKey)"></script>
+		
+			

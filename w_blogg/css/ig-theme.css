@@ -1,0 +1,87 @@
+:root {
+    /* Base */
+    --white: #fff;
+    --black: #000;
+    
+    /* Theme */
+    --theme: {themeColor};
+    --theme-rgb: {themeColorRGB};
+    --theme-darker: {themeColorDarker};
+    --theme-contrast: {themeContrast};
+    
+    /* Theme alt */
+    --theme-alt: {themeAltColor};
+    --theme-alt-darker: {themeAltColorDarker};
+    --theme-alt-contrast: {themeAltContrast};
+    
+    /* Dark */
+    --heading-dark: {headingColorDark};
+    --text-dark: {textColorDark};
+    --background-dark: {darkBackground};
+    --background-dark-lighter: {darkBackgroundLighter};
+    --border-dark: rgba(0, 0, 0, 0.08);
+    
+    /* Light */
+    --heading-light: {headingColorLight};
+    --text-light: {textColorLight};
+    --background-light: {backgroundLight};
+    --border-light: rgba(255, 255, 255, 0.1);
+    
+    /* Header */
+    --selected-nav-item: {selectedNavigationItem};
+    --header-height: {headerHeight};
+    --logo-padding: {logoPadding};
+    --navigation-padding: {navigationPadding};
+    --pre-top-height: 30px;
+    --top-combo-calc: calc(var(--header-height) + var(--pre-top-height));
+    
+    /* Grid */
+    --grid-width-small: {gridWidthSmall};
+    --grid-width: {gridWidth};
+    --grid-width-big: {gridWidthBig};
+    --grid-gutter: {gridGutter};
+    --grid-gutter-half: calc(var(--grid-gutter) / 2);
+    
+    /* Buttons */
+    --button-border-radius: {buttonBorderRadius};
+    
+    /* Typography */
+    --body-font: {bodyFont};
+    --heading-font: {headingFont};
+    --font-size: 1.1rem;
+    --font-size-big: 1.25rem;
+    
+    --font-weight-normal: normal;
+    --font-weight-light: 300;
+    --font-weight-bold: bold;
+    --font-weight-bolder: bolder;
+    
+    --body-font-weight: var(--font-weight-normal);
+    --heading-font-weight: var(--font-weight-bold);
+    
+    /* Validation */
+    --success: #2ecc71;
+    --error: #e74c3c;
+}
+@media only screen and (max-width: 1200px) {
+  :root {
+    --navigation-padding: {navigationPaddingSmallerScreens};
+  }
+}
+@media only screen and (max-width: 992px) {
+  :root {
+    --header-height: {headerHeightMobile};
+    --grid-gutter: {gridGutterMedium};
+    --logo-padding: {logoPaddingMobile};
+  }
+}
+@media only screen and (max-width: 768px) {
+  :root {
+    --grid-gutter: {gridGutterSmall};
+  }
+}
+@media only screen and (max-width: 480px) {
+  :root {
+    --grid-gutter: {gridGutterXS};
+  }
+}
