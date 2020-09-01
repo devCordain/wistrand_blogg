@@ -6,7 +6,7 @@ using  Umbraco.Core.Models;
 using  Umbraco.Core.Models.PublishedContent;
 using  Umbraco.Web;
 using  Umbraco.ModelsBuilder.Embedded;
-[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "c696e0d8daf7e8f7")]
+[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "b0988f359564d2de")]
 [assembly:System.Reflection.AssemblyVersion("0.0.0.3")]
 
 
@@ -5899,6 +5899,107 @@ namespace Umbraco.Web.PublishedModels
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
 		[ImplementPropertyType("textColor")]
 		public object TextColor => this.Value("textColor");
+	}
+
+	/// <summary>Link List Item</summary>
+	[PublishedModel("linkListItem")]
+	public partial class LinkListItem : PublishedElementModel
+	{
+		// helpers
+#pragma warning disable 0109 // new is redundant
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		public new const string ModelTypeAlias = "linkListItem";
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		public new static IPublishedContentType GetModelContentType()
+			=> PublishedModelUtility.GetModelContentType(ModelItemType, ModelTypeAlias);
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		public static IPublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<LinkListItem, TValue>> selector)
+			=> PublishedModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+#pragma warning restore 0109
+
+		// ctor
+		public LinkListItem(IPublishedElement content)
+			: base(content)
+		{ }
+
+		// properties
+
+		///<summary>
+		/// Description
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("description")]
+		public string Description => this.Value<string>("description");
+
+		///<summary>
+		/// link button
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("linkButton")]
+		public global::System.Collections.Generic.IEnumerable<global::Umbraco.Web.PublishedModels.Button> LinkButton => this.Value<global::System.Collections.Generic.IEnumerable<global::Umbraco.Web.PublishedModels.Button>>("linkButton");
+
+		///<summary>
+		/// Title
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("title")]
+		public string Title => this.Value<string>("title");
+	}
+
+	/// <summary>Link List</summary>
+	[PublishedModel("columnLinkList")]
+	public partial class ColumnLinkList : PublishedElementModel
+	{
+		// helpers
+#pragma warning disable 0109 // new is redundant
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		public new const string ModelTypeAlias = "columnLinkList";
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		public new static IPublishedContentType GetModelContentType()
+			=> PublishedModelUtility.GetModelContentType(ModelItemType, ModelTypeAlias);
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		public static IPublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<ColumnLinkList, TValue>> selector)
+			=> PublishedModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+#pragma warning restore 0109
+
+		// ctor
+		public ColumnLinkList(IPublishedElement content)
+			: base(content)
+		{ }
+
+		// properties
+
+		///<summary>
+		/// Boxed Column
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("boxedColumn")]
+		public bool BoxedColumn => this.Value<bool>("boxedColumn");
+
+		///<summary>
+		/// Column Width
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("columnWidth")]
+		public string ColumnWidth => this.Value<string>("columnWidth");
+
+		///<summary>
+		/// Heading
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("heading")]
+		public string Heading => this.Value<string>("heading");
+
+		///<summary>
+		/// Items
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("items")]
+		public global::System.Collections.Generic.IEnumerable<global::Umbraco.Web.PublishedModels.LinkListItem> Items => this.Value<global::System.Collections.Generic.IEnumerable<global::Umbraco.Web.PublishedModels.LinkListItem>>("items");
 	}
 
 	/// <summary>Folder</summary>

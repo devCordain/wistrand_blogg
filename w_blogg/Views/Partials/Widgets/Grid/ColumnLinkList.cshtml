@@ -1,0 +1,40 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.ColumnLinkList>
+@using ContentModels = Umbraco.Web.PublishedModels;
+
+<div class="grid-item grid-item--price-list @(Model.BoxedColumn ? "grid-item--boxed" : "")">
+
+    @if (Model.Items != null && Model.Items.Any())
+    {
+        if (Model.Heading != "")
+        {
+            <legend>@Model.Heading</legend>
+        }
+        foreach (Umbraco.Web.PublishedModels.LinkListItem item in Model.Items)
+        {
+            <article>
+                <div class="row">
+                    <div class="menu-info col-80">
+                        @if (item.Title != "")
+                        {
+                            <h5>@item.Title</h5>
+                        }
+                        @if (item.Description != "")
+                        {
+                            <p>@item.Description</p>
+                        }
+                        
+                    </div>
+                    @if(item.LinkButton != null){
+                        <div class="button-wrap">
+                            @foreach(var button in item.LinkButton){
+                            @Html.Partial("~/Views/Partials/Widgets/RenderButton.cshtml", button)
+                        }
+                    </div>
+                }
+                 	
+                </div>
+            </article>
+        }
+    }
+</div>
+
