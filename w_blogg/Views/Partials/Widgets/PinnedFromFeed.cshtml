@@ -1,0 +1,89 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.PinnedFromFeed>
+@using ContentModels = Umbraco.Web.PublishedModels;
+@using Igloo.Extensions
+@{
+	var textColorClass = Model.TextColor?.ToString() == "white" ? "light-color" : ""; 
+    var backgroundColor = Model.BackgroundColor?.ToString();
+    var backgroundColorClass = string.IsNullOrWhiteSpace(backgroundColor) ? "gray-bg" : backgroundColor + "-bg";
+}
+<section class="block feed @(backgroundColorClass) @(textColorClass)">
+		
+	@if(Model.PreHeading != "" || Model.Heading != "" || Model.IntroText.ToString() != ""){
+	
+		<div class="block__header">
+			@if(Model.PreHeading != ""){
+				<h6 class="pre-head">@Model.PreHeading</h6>
+			}
+			@if(Model.Heading != ""){
+				<h2>@Model.Heading</h2>
+			}
+			@if(Model.IntroText.ToString() != ""){
+				<div class="block__header-text">
+					@Model.IntroText
+				</div>
+			}			
+		</div>
+	}
+	
+	@if(Model.FeedPage != null){
+        ContentModels.PinnableFeed FeedPage = Model.FeedPage as ContentModels.PinnableFeed;
+        
+        int numberOfPosts = (Model.NumberOfPosts != "" ? Model.NumberOfPosts.AsInt() : 3);
+        
+	    var posts = Model.FeedPage.Children<ContentModels.PinnablePost>().Where(x => x.IsVisible() && x.Pinned == true).OrderByDescending(x => x.Date).Take(numberOfPosts).ToList();
+		
+		<div class="block__body">
+
+			<div class="container">
+
+				<div class="row row--center row--no-wrap-s box-wrap">
+				    
+					@foreach (var post in posts)
+					{
+						<div class="col-33 col-s-80">
+							<article class="box">
+								@if (post.PostImage != null)
+								{
+									<div class="box__image">
+									    <a href="@post.Url" title="@post.Heading" tabindex="-1">
+									        <img class="lazyload"
+							                    src="@(post.PostImage.GetCropUrl(10,7))" 
+									            data-sizes="auto"
+									            data-srcset="@(post.PostImage.GetCropUrl(300,210)) 300w,
+                                        	    @(post.PostImage.GetCropUrl(500,350)) 500w,
+                                        	    @(post.PostImage.GetCropUrl(1000,700)) 1000w"
+									            alt="@post.Heading">
+									    </a>
+									</div>
+								}
+								<div class="box__text">
+									<h3 class="h5"><a title="@post.Heading" href="@post.Url">@post.Heading</a></h3>
+									@if(!FeedPage.HideDate){
+										<div class="box__meta">
+											@String.Format("{0: dd MMMM yyyy}", post.Date)
+										</div>
+									}
+									<p>@post.PostDescription</p>
+								</div>
+							</article>
+						</div>
+					}
+
+				</div>
+
+			</div>
+
+		</div>
+		
+		if(Model.Buttons != null)
+		{
+    		<div class="text-center">
+        		<div class="button-wrap">
+            		@foreach(var button in Model.Buttons){
+                        @Html.Partial("~/Views/Partials/Widgets/Renderbutton.cshtml", button)
+                    }
+                </div>
+            </div>
+        }
+	}
+</section>

@@ -1,0 +1,39 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.PinnedPosts>
+@using ContentModels = Umbraco.Web.PublishedModels;
+@using Igloo.Extensions
+@{
+	var textColorClass = Model.TextColor?.ToString() == "white" ? "light-color" : ""; 
+    var backgroundColor = Model.BackgroundColor?.ToString();
+    var backgroundColorClass = string.IsNullOrWhiteSpace(backgroundColor) ? "gray-bg" : backgroundColor + "-bg";
+}
+<section class="block feed @(backgroundColorClass) @(textColorClass)">
+		
+	@if(Model.PreHeading != "" || Model.Heading != "" || Model.IntroText.ToString() != ""){
+	
+		<div class="block__header">
+			@if(Model.PreHeading != ""){
+				<h6 class="pre-head">@Model.PreHeading</h6>
+			}
+			@if(Model.Heading != ""){
+				<h2>@Model.Heading</h2>
+			}
+			@if(Model.IntroText.ToString() != ""){
+				<div class="block__header-text">
+					@Model.IntroText
+				</div>
+			}			
+		</div>
+	}
+		
+		if(Model.Buttons != null)
+		{
+    		<div class="text-center">
+        		<div class="button-wrap">
+            		@foreach(var button in Model.Buttons){
+                        @Html.Partial("~/Views/Partials/Widgets/Renderbutton.cshtml", button)
+                    }
+                </div>
+            </div>
+        }
+	}
+</section>
