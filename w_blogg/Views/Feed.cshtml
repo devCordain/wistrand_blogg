@@ -20,6 +20,7 @@
 
     var pagesToSkip = takePerPage * (page - 1);
     posts = posts.Skip(pagesToSkip).Take(takePerPage).ToList();
+    
 }
 
 @Html.Partial("~/Views/Partials/Widgets/RenderWidgets.cshtml")

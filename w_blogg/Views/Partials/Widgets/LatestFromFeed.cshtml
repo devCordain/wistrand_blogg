@@ -26,11 +26,11 @@
 	}
 	
 	@if(Model.FeedPage != null){
-        ContentModels.Feed FeedPage = Model.FeedPage as ContentModels.Feed;
+        ContentModels.PinnableFeed FeedPage = Model.FeedPage as ContentModels.PinnableFeed;
         
         int numberOfPosts = (Model.NumberOfPosts != "" ? Model.NumberOfPosts.AsInt() : 3);
         
-	    var posts = Model.FeedPage.Children<ContentModels.Post>().Where(x => x.IsVisible()).OrderByDescending(x => x.Date).Take(numberOfPosts).ToList();
+	    var posts = Model.FeedPage.Children<ContentModels.PinnablePost>().Where(x => x.IsVisible()).OrderByDescending(x => x.Date).Take(numberOfPosts).ToList();
 		
 		<div class="block__body">
 

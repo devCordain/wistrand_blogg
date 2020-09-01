@@ -10,25 +10,25 @@
     --theme-contrast: #111;
     
     /* Theme alt */
-    --theme-alt: #2ECC71;
-    --theme-alt-darker: #1C7B44;
+    --theme-alt: #87CCBA;
+    --theme-alt-darker: #3D8F7B;
     --theme-alt-contrast: #fff;
     
     /* Dark */
-    --heading-dark: #111;
-    --text-dark: #444;
-    --background-dark: #111;
-    --background-dark-lighter: #161616;
+    --heading-dark: #FFFFFF;
+    --text-dark: #FFFFFF;
+    --background-dark: #000000;
+    --background-dark-lighter: #060606;
     --border-dark: rgba(0, 0, 0, 0.08);
     
     /* Light */
-    --heading-light: #FFF;
-    --text-light: #FFF;
-    --background-light: #F9F9F9;
+    --heading-light: #000000;
+    --text-light: #000000;
+    --background-light: #FFFFFF;
     --border-light: rgba(255, 255, 255, 0.1);
     
     /* Header */
-    --selected-nav-item: #3AA5ED;
+    --selected-nav-item: #000000;
     --header-height: 70px;
     --logo-padding: 24px;
     --navigation-padding: 30px;
@@ -46,8 +46,8 @@
     --button-border-radius: 5px;
     
     /* Typography */
-    --body-font: "Roboto", sans-serif;
-    --heading-font: "Roboto", sans-serif;
+    --body-font: Roboto, sans-serif;
+    --heading-font: Roboto, sans-serif;
     --font-size: 1.1rem;
     --font-size-big: 1.25rem;
     
@@ -70,7 +70,7 @@
 }
 @media only screen and (max-width: 992px) {
   :root {
-    --header-height: 50px;
+    --header-height: px;
     --grid-gutter: 20px;
     --logo-padding: 16px;
   }

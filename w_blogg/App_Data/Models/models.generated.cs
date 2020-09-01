@@ -17,8 +17,8 @@ using Umbraco.Core.Models.PublishedContent;
 using Umbraco.Web;
 using Umbraco.ModelsBuilder.Embedded;
 
-[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "2bb7a5694c2c092")]
-[assembly:System.Reflection.AssemblyVersion("0.0.0.1")]
+[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "c696e0d8daf7e8f7")]
+[assembly:System.Reflection.AssemblyVersion("0.0.0.3")]
 
 namespace Umbraco.Web.PublishedModels
 {
@@ -5403,6 +5403,481 @@ namespace Umbraco.Web.PublishedModels
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
 		[ImplementPropertyType("text")]
 		public global::System.Web.IHtmlString Text => this.Value<global::System.Web.IHtmlString>("text");
+
+		///<summary>
+		/// Text Color
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("textColor")]
+		public object TextColor => this.Value("textColor");
+	}
+
+	/// <summary>Pinnable Post</summary>
+	[PublishedModel("pinnablePost")]
+	public partial class PinnablePost : PublishedContentModel, ISEO, ISettings
+	{
+		// helpers
+#pragma warning disable 0109 // new is redundant
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		public new const string ModelTypeAlias = "pinnablePost";
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		public new static IPublishedContentType GetModelContentType()
+			=> PublishedModelUtility.GetModelContentType(ModelItemType, ModelTypeAlias);
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		public static IPublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<PinnablePost, TValue>> selector)
+			=> PublishedModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+#pragma warning restore 0109
+
+		// ctor
+		public PinnablePost(IPublishedContent content)
+			: base(content)
+		{ }
+
+		// properties
+
+		///<summary>
+		/// Date
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("date")]
+		public global::System.DateTime Date => this.Value<global::System.DateTime>("date");
+
+		///<summary>
+		/// Disable Comments: Disable the comments on this post
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("disableComments")]
+		public bool DisableComments => this.Value<bool>("disableComments");
+
+		///<summary>
+		/// Heading
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("heading")]
+		public string Heading => this.Value<string>("heading");
+
+		///<summary>
+		/// Image
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("image")]
+		public global::Umbraco.Core.Models.PublishedContent.IPublishedContent Image => this.Value<global::Umbraco.Core.Models.PublishedContent.IPublishedContent>("image");
+
+		///<summary>
+		/// Intro Text
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("introText")]
+		public global::System.Web.IHtmlString IntroText => this.Value<global::System.Web.IHtmlString>("introText");
+
+		///<summary>
+		/// Pinned Post: Check if you want the post to be pinned
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("pinned")]
+		public bool Pinned => this.Value<bool>("pinned");
+
+		///<summary>
+		/// Description: Short description. Shown when listing this post
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("postDescription")]
+		public string PostDescription => this.Value<string>("postDescription");
+
+		///<summary>
+		/// Image: Shown when listing this post
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("postImage")]
+		public global::Umbraco.Core.Models.PublishedContent.IPublishedContent PostImage => this.Value<global::Umbraco.Core.Models.PublishedContent.IPublishedContent>("postImage");
+
+		///<summary>
+		/// Pre Heading
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("preHeading")]
+		public string PreHeading => this.Value<string>("preHeading");
+
+		///<summary>
+		/// Text
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("text")]
+		public global::System.Web.IHtmlString Text => this.Value<global::System.Web.IHtmlString>("text");
+
+		///<summary>
+		/// Hide In Sitemap: Hide this page from the sitemap.xml file
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("hideInSitemap")]
+		public bool HideInSitemap => global::Umbraco.Web.PublishedModels.SEO.GetHideInSitemap(this);
+
+		///<summary>
+		/// Description: Short description of the page. Roughly 155 Characters for optimal SEO
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("metaDescription")]
+		public string MetaDescription => global::Umbraco.Web.PublishedModels.SEO.GetMetaDescription(this);
+
+		///<summary>
+		/// Image: This image is shown when the page shared on social media
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("metaImage")]
+		public global::Umbraco.Core.Models.PublishedContent.IPublishedContent MetaImage => global::Umbraco.Web.PublishedModels.SEO.GetMetaImage(this);
+
+		///<summary>
+		/// Title: Define the title of a page. Google typically displays the first 50-60 characters of a title tag
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("metaTitle")]
+		public string MetaTitle => global::Umbraco.Web.PublishedModels.SEO.GetMetaTitle(this);
+
+		///<summary>
+		/// Sitemap Page Change Frequently: How frequently the page is likely to change. This value provides general information to search engines and may not correlate exactly to how often they crawl the page.
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("sitemapPageChangeFrequently")]
+		public object SitemapPageChangeFrequently => global::Umbraco.Web.PublishedModels.SEO.GetSitemapPageChangeFrequently(this);
+
+		///<summary>
+		/// Sitemap Page Priority: The priority of this page relative to other pages on your site. Default is 0.5
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("sitemapPagePriority")]
+		public object SitemapPagePriority => global::Umbraco.Web.PublishedModels.SEO.GetSitemapPagePriority(this);
+
+		///<summary>
+		/// Hide Footer: Hide the Footer on this page
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("hideFooter")]
+		public bool HideFooter => global::Umbraco.Web.PublishedModels.Settings.GetHideFooter(this);
+
+		///<summary>
+		/// Hide From Search: If checked, this page will not appear in search results
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("hideFromSearch")]
+		public bool HideFromSearch => global::Umbraco.Web.PublishedModels.Settings.GetHideFromSearch(this);
+
+		///<summary>
+		/// Hide Header: Hide the Header on this page
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("hideHeader")]
+		public bool HideHeader => global::Umbraco.Web.PublishedModels.Settings.GetHideHeader(this);
+
+		///<summary>
+		/// Transparent Header: Removes the header background color before scroll
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("transparentHeader")]
+		public bool TransparentHeader => global::Umbraco.Web.PublishedModels.Settings.GetTransparentHeader(this);
+
+		///<summary>
+		/// Transparent Header Color: Set the color theme for the transparent header. Dark will show a dark navigation and the "Logo On Dark"-logo
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("transparentHeaderColor")]
+		public object TransparentHeaderColor => global::Umbraco.Web.PublishedModels.Settings.GetTransparentHeaderColor(this);
+
+		///<summary>
+		/// Hide In Navigation: Hide this page from any navigation or listing
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("umbracoNaviHide")]
+		public bool UmbracoNaviHide => global::Umbraco.Web.PublishedModels.Settings.GetUmbracoNaviHide(this);
+	}
+
+	/// <summary>Pinnable Feed</summary>
+	[PublishedModel("pinnableFeed")]
+	public partial class PinnableFeed : PublishedContentModel, ISEO, ISettings
+	{
+		// helpers
+#pragma warning disable 0109 // new is redundant
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		public new const string ModelTypeAlias = "pinnableFeed";
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		public new static IPublishedContentType GetModelContentType()
+			=> PublishedModelUtility.GetModelContentType(ModelItemType, ModelTypeAlias);
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		public static IPublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<PinnableFeed, TValue>> selector)
+			=> PublishedModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+#pragma warning restore 0109
+
+		// ctor
+		public PinnableFeed(IPublishedContent content)
+			: base(content)
+		{ }
+
+		// properties
+
+		///<summary>
+		/// Hide Dates: Hides the date from posts created in this feed
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("hideDate")]
+		public bool HideDate => this.Value<bool>("hideDate");
+
+		///<summary>
+		/// Hide Share Buttons: Removes the share buttons from posts created in this feed
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("hideShareButtons")]
+		public bool HideShareButtons => this.Value<bool>("hideShareButtons");
+
+		///<summary>
+		/// Widgets: Add content above the list of posts by choosing different widgets. You can modify and sort each widget in different ways to make up the design
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("widgets")]
+		public global::System.Collections.Generic.IEnumerable<global::Umbraco.Core.Models.PublishedContent.IPublishedElement> Widgets => this.Value<global::System.Collections.Generic.IEnumerable<global::Umbraco.Core.Models.PublishedContent.IPublishedElement>>("widgets");
+
+		///<summary>
+		/// Hide In Sitemap: Hide this page from the sitemap.xml file
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("hideInSitemap")]
+		public bool HideInSitemap => global::Umbraco.Web.PublishedModels.SEO.GetHideInSitemap(this);
+
+		///<summary>
+		/// Description: Short description of the page. Roughly 155 Characters for optimal SEO
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("metaDescription")]
+		public string MetaDescription => global::Umbraco.Web.PublishedModels.SEO.GetMetaDescription(this);
+
+		///<summary>
+		/// Image: This image is shown when the page shared on social media
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("metaImage")]
+		public global::Umbraco.Core.Models.PublishedContent.IPublishedContent MetaImage => global::Umbraco.Web.PublishedModels.SEO.GetMetaImage(this);
+
+		///<summary>
+		/// Title: Define the title of a page. Google typically displays the first 50-60 characters of a title tag
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("metaTitle")]
+		public string MetaTitle => global::Umbraco.Web.PublishedModels.SEO.GetMetaTitle(this);
+
+		///<summary>
+		/// Sitemap Page Change Frequently: How frequently the page is likely to change. This value provides general information to search engines and may not correlate exactly to how often they crawl the page.
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("sitemapPageChangeFrequently")]
+		public object SitemapPageChangeFrequently => global::Umbraco.Web.PublishedModels.SEO.GetSitemapPageChangeFrequently(this);
+
+		///<summary>
+		/// Sitemap Page Priority: The priority of this page relative to other pages on your site. Default is 0.5
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("sitemapPagePriority")]
+		public object SitemapPagePriority => global::Umbraco.Web.PublishedModels.SEO.GetSitemapPagePriority(this);
+
+		///<summary>
+		/// Hide Footer: Hide the Footer on this page
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("hideFooter")]
+		public bool HideFooter => global::Umbraco.Web.PublishedModels.Settings.GetHideFooter(this);
+
+		///<summary>
+		/// Hide From Search: If checked, this page will not appear in search results
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("hideFromSearch")]
+		public bool HideFromSearch => global::Umbraco.Web.PublishedModels.Settings.GetHideFromSearch(this);
+
+		///<summary>
+		/// Hide Header: Hide the Header on this page
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("hideHeader")]
+		public bool HideHeader => global::Umbraco.Web.PublishedModels.Settings.GetHideHeader(this);
+
+		///<summary>
+		/// Transparent Header: Removes the header background color before scroll
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("transparentHeader")]
+		public bool TransparentHeader => global::Umbraco.Web.PublishedModels.Settings.GetTransparentHeader(this);
+
+		///<summary>
+		/// Transparent Header Color: Set the color theme for the transparent header. Dark will show a dark navigation and the "Logo On Dark"-logo
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("transparentHeaderColor")]
+		public object TransparentHeaderColor => global::Umbraco.Web.PublishedModels.Settings.GetTransparentHeaderColor(this);
+
+		///<summary>
+		/// Hide In Navigation: Hide this page from any navigation or listing
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("umbracoNaviHide")]
+		public bool UmbracoNaviHide => global::Umbraco.Web.PublishedModels.Settings.GetUmbracoNaviHide(this);
+	}
+
+	/// <summary>Pinned from Feed</summary>
+	[PublishedModel("pinnedFromFeed")]
+	public partial class PinnedFromFeed : PublishedElementModel
+	{
+		// helpers
+#pragma warning disable 0109 // new is redundant
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		public new const string ModelTypeAlias = "pinnedFromFeed";
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		public new static IPublishedContentType GetModelContentType()
+			=> PublishedModelUtility.GetModelContentType(ModelItemType, ModelTypeAlias);
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		public static IPublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<PinnedFromFeed, TValue>> selector)
+			=> PublishedModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+#pragma warning restore 0109
+
+		// ctor
+		public PinnedFromFeed(IPublishedElement content)
+			: base(content)
+		{ }
+
+		// properties
+
+		///<summary>
+		/// Background Color
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("backgroundColor")]
+		public object BackgroundColor => this.Value("backgroundColor");
+
+		///<summary>
+		/// Buttons
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("buttons")]
+		public global::System.Collections.Generic.IEnumerable<global::Umbraco.Web.PublishedModels.Button> Buttons => this.Value<global::System.Collections.Generic.IEnumerable<global::Umbraco.Web.PublishedModels.Button>>("buttons");
+
+		///<summary>
+		/// Feed Page: Select which page to get feed-posts from
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("feedPage")]
+		public global::Umbraco.Core.Models.PublishedContent.IPublishedContent FeedPage => this.Value<global::Umbraco.Core.Models.PublishedContent.IPublishedContent>("feedPage");
+
+		///<summary>
+		/// Heading
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("heading")]
+		public string Heading => this.Value<string>("heading");
+
+		///<summary>
+		/// Intro Text
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("introText")]
+		public global::System.Web.IHtmlString IntroText => this.Value<global::System.Web.IHtmlString>("introText");
+
+		///<summary>
+		/// Number of Posts: How many posts should be shown. Default is 3
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("numberOfPosts")]
+		public string NumberOfPosts => this.Value<string>("numberOfPosts");
+
+		///<summary>
+		/// Pre Heading
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("preHeading")]
+		public string PreHeading => this.Value<string>("preHeading");
+
+		///<summary>
+		/// Text Color
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("textColor")]
+		public object TextColor => this.Value("textColor");
+	}
+
+	/// <summary>Latest from Pinnable Feed</summary>
+	[PublishedModel("latestFromPinnableFeed")]
+	public partial class LatestFromPinnableFeed : PublishedElementModel
+	{
+		// helpers
+#pragma warning disable 0109 // new is redundant
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		public new const string ModelTypeAlias = "latestFromPinnableFeed";
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		public new static IPublishedContentType GetModelContentType()
+			=> PublishedModelUtility.GetModelContentType(ModelItemType, ModelTypeAlias);
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		public static IPublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<LatestFromPinnableFeed, TValue>> selector)
+			=> PublishedModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+#pragma warning restore 0109
+
+		// ctor
+		public LatestFromPinnableFeed(IPublishedElement content)
+			: base(content)
+		{ }
+
+		// properties
+
+		///<summary>
+		/// Background Color
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("backgroundColor")]
+		public object BackgroundColor => this.Value("backgroundColor");
+
+		///<summary>
+		/// Buttons
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("buttons")]
+		public global::System.Collections.Generic.IEnumerable<global::Umbraco.Web.PublishedModels.Button> Buttons => this.Value<global::System.Collections.Generic.IEnumerable<global::Umbraco.Web.PublishedModels.Button>>("buttons");
+
+		///<summary>
+		/// Feed Page: Select which page to get feed-posts from
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("feedPage")]
+		public global::Umbraco.Core.Models.PublishedContent.IPublishedContent FeedPage => this.Value<global::Umbraco.Core.Models.PublishedContent.IPublishedContent>("feedPage");
+
+		///<summary>
+		/// Heading
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("heading")]
+		public string Heading => this.Value<string>("heading");
+
+		///<summary>
+		/// Intro Text
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("introText")]
+		public global::System.Web.IHtmlString IntroText => this.Value<global::System.Web.IHtmlString>("introText");
+
+		///<summary>
+		/// Number of Posts: How many posts should be shown. Default is 3
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("numberOfPosts")]
+		public string NumberOfPosts => this.Value<string>("numberOfPosts");
+
+		///<summary>
+		/// Pre Heading
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.6.4")]
+		[ImplementPropertyType("preHeading")]
+		public string PreHeading => this.Value<string>("preHeading");
 
 		///<summary>
 		/// Text Color
