@@ -1,11 +1,11 @@
-﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.Feed>
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.PinnableFeed>
 @using ContentModels = Umbraco.Web.PublishedModels;
 @using System.Globalization
 @using Igloo.Extensions
 @{
     Layout = "Master.cshtml";
 
-    var posts = Model.Children<ContentModels.Post>().Where(x => x.IsVisible()).OrderByDescending(x => x.Date).ToList();
+    var posts = Model.Children<ContentModels.PinnablePost>().Where(x => x.IsVisible()).OrderByDescending(x => x.Date).ToList();
 
     var page = 1;
     var requestQuery = Request["page"];

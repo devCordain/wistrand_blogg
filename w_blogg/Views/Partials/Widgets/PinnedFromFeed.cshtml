@@ -1,4 +1,4 @@
-﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.LatestFromFeed>
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.PinnedFromFeed>
 @using ContentModels = Umbraco.Web.PublishedModels;
 @using Igloo.Extensions
 @{
@@ -30,7 +30,7 @@
         
         int numberOfPosts = (Model.NumberOfPosts != "" ? Model.NumberOfPosts.AsInt() : 3);
         
-	    var posts = Model.FeedPage.Children<ContentModels.PinnablePost>().Where(x => x.IsVisible()).OrderByDescending(x => x.Date).Take(numberOfPosts).ToList();
+	    var posts = Model.FeedPage.Children<ContentModels.PinnablePost>().Where(x => x.IsVisible() && x.Pinned == true).OrderByDescending(x => x.Date).Take(numberOfPosts).ToList();
 		
 		<div class="block__body">
 
