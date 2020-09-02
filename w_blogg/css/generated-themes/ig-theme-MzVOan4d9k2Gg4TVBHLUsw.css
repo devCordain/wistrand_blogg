@@ -4,9 +4,9 @@
     --black: #000;
     
     /* Theme */
-    --theme: #fafafa;
-    --theme-rgb: 250, 250, 250;
-    --theme-darker: #959595;
+    --theme: #000000;
+    --theme-rgb: 0, 0, 0;
+    --theme-darker: #000000;
     --theme-contrast: #111;
     
     /* Theme alt */
@@ -15,8 +15,8 @@
     --theme-alt-contrast: #fff;
     
     /* Dark */
-    --heading-dark: #FFFFFF;
-    --text-dark: #FFFFFF;
+    --heading-dark: #000000;
+    --text-dark: #000000;
     --background-dark: #000000;
     --background-dark-lighter: #060606;
     --border-dark: rgba(0, 0, 0, 0.08);
@@ -28,7 +28,7 @@
     --border-light: rgba(255, 255, 255, 0.1);
     
     /* Header */
-    --selected-nav-item: #000000;
+    --selected-nav-item: #48BA74;
     --header-height: 70px;
     --logo-padding: 24px;
     --navigation-padding: 30px;

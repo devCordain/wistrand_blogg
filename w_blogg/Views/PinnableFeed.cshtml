@@ -14,7 +14,7 @@
         page = int.Parse(requestQuery);
     }
 
-    const int takePerPage = 9;
+    const int takePerPage = 3;
     var numberOfPagesDecimal = Convert.ToDecimal(posts.Count) / takePerPage;
     var numberOfPagesInt = int.Parse(Math.Ceiling(numberOfPagesDecimal).ToString(CultureInfo.InvariantCulture));
 

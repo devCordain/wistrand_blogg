@@ -4,12 +4,12 @@
 @{
     Layout = "Master.cshtml";
     
-    var parentFeed = Model.Parent<ContentModels.Feed>();
-    var posts = parentFeed.Children<ContentModels.Post>().Where(x => x.IsVisible() && x.Id != Model.Id).OrderByDescending(x => x.Date).Take(3).ToList();
+    var parentFeed = Model.Parent<ContentModels.PinnableFeed>();
+    var posts = parentFeed.Children<ContentModels.PinnablePost>().Where(x => x.IsVisible() && x.Id != Model.Id).OrderByDescending(x => x.Date).Take(3).ToList();
     var hideDate = parentFeed.HideDate;
     var disqusShortname = Model.SettingsValue("disqusShortname", "");
     var companyName = Model.SettingsValue("companyName", "");
-    var companyLogo = Model.SettingsValue<IPublishedContent>("companyLogo", null)
+    var companyLogo = Model.SettingsValue<IPublishedContent>("companyLogo", null);
 }
 
 <section class="block post white-bg">
@@ -131,7 +131,7 @@
             <div class="text-center">
                 <div class="button-wrap">
                     <br>
-                    <a href="@parentFeed.Url" class="button button--dark">@Umbraco.GetDictionaryValue("Show more")</a>
+                    <a href="@parentFeed.Url" class="button button--light">@Umbraco.GetDictionaryValue("Show more")</a>
                 </div>
             </div>
         }
