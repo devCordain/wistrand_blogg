@@ -9,7 +9,12 @@
         {
             <legend>@Model.Heading</legend>
         }
-        foreach (Umbraco.Web.PublishedModels.LinkListItem item in Model.Items)
+        
+        
+  
+    var items= Model.Items.Where(x=> x.IsVisible()).OrderBy(x=> x.Title).ToList();
+
+        foreach (Umbraco.Web.PublishedModels.LinkListItem item in items)
         {
             <article>
                 <div class="row">
